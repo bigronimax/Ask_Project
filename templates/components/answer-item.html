@@ -1,0 +1,22 @@
+{% load static %}
+
+<div class="question answer">
+    <div class="question__left">
+      <img class="question__left__img" src="{% static 'img/avatar.png' %}" alt="">
+      <div class="question__left__likes">
+        <span>5</span>
+        <button><img src="{% static 'img/like.png' %}" alt=""></button>
+      </div>
+    </div>
+    <div class="question__right">
+      <div class="question__right__body">
+        <span class="question__right__text answer__text">{{ answer.content }}</span>
+      </div>
+      <div class="question__right__hrefs">
+        <form class="answer__form">
+          <input class="answer__checkbox" id="answer" type="checkbox">
+          <label class="answer__checkbox__text" for="answer">Correct!</label>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,5 +1,7 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../static/reset.css"/>
-  <link rel="stylesheet" href="../static/style.css"/>
+  <link rel="stylesheet" href="{% static '/css/reset.css' %}"/>
+  <link rel="stylesheet" href="{% static '/css/style.css' %}"/>
 </head>
 <body>
   <div class="wrapper">
@@ -17,7 +19,7 @@
       <div class="container">
           <div class="header__inner">
             <h1 class="header__title">
-              AskProject
+              <a class="header__href" href="{% url 'index' %}">AskProject</a>
             </h1>
             <form class="header__form" action="" method="get">
               <input class="header__search" name="s" placeholder="Search" type="search">
@@ -26,7 +28,7 @@
           
             <div class="header__register">
               <div class="header__avatar__body">
-                <img class="header__avatar" src="../static/img/avatar.png" alt="">
+                <img class="header__avatar" src="{% static '/img/avatar.png' %}" alt="">
               </div>
               <div class="header__register__body">
                   <span class="header__register_name">Dr. Pepper</span>
@@ -40,9 +42,10 @@
     <section class="main">
       <div class="container">
         <div class="main__inner">
-          <div class="fragment">
-            
-          </div>
+          {% block content %}
+
+
+          {% endblock %}
           <div class="main__right">
             <div class="main__right__inner">
               <div class="right__tags">
@@ -78,11 +81,8 @@
       </div>
     </section>
     <footer class="footer">
-      
     </footer>
   </div>
-
-  
 </body>
 </html>
 

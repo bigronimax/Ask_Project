@@ -1,0 +1,24 @@
+{% load static %}
+
+
+<div class="question">
+    <div class="question__left">
+      <img class="question__left__img" src="{% static 'img/avatar.png' %}" alt="">
+      <div class="question__left__likes">
+        <span>5</span>
+        <button><img src="{% static 'img/like.png' %}" alt=""></button>
+      </div>
+    </div>
+    <div class="question__right">
+      <div class="question__right__body">
+        <a class="question__right__title" href="{% url 'question' question_id=question.id %}">{{ question.title }}</a>
+        <span class="question__right__text">{{ question.content }}</span>
+      </div>
+      <div class="question__right__hrefs">
+        <a class="question__right__hrefs__answer" href="{% url 'question' question_id=question.id %}">answer ({{ question.answer_amount }})</a>
+        <span class="question__right__hrefs__tags">Tags:</span>
+        <a class="question__right__hrefs__item" href="#">black-jack</a>
+        <a class="question__right__hrefs__item" href="#">bender</a>
+      </div>
+    </div>
+  </div>

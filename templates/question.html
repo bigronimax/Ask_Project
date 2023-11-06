@@ -1,150 +1,50 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>AskProject</title>
-  <link rel="stylesheet" href="../static/reset.css"/>
-  <link rel="stylesheet" href="../static/style.css"/>
-</head>
-<body>
-  <div class="wrapper">
-    <header class="header">
-      <div class="container">
-          <div class="header__inner">
-            <h1 class="header__title">
-              AskProject
-            </h1>
-            <form class="header__form" action="" method="get">
-              <input class="header__search" name="s" placeholder="Search" type="search">
-              <button class="header__ask">Ask!</button>
-            </form>
-          
-            <div class="header__register">
-              <div class="header__avatar__body">
-                <img class="header__avatar" src="../static/img/avatar.png" alt="">
-              </div>
-              <div class="header__register__body">
-                  <span class="header__register_name">Dr. Pepper</span>
-                  <a class="header__register__settings" href="#">settings</a>
-                  <a class="header__register__log-out" href="#">log out</a>
-              </div>
-            </div>
-          </div>
-      </div>
-    </header>
-    <section class="main">
-      <div class="container">
-        <div class="main__inner">
-          <div class="fragment">
-            <div class="question question__one">
-              <div class="question__left">
-                <img class="question__left__img question__avatar" src="../static/img/avatar.png" alt="">
-                <div class="question__left__likes">
-                  <span>5</span>
-                  <button><img src="../static/img/like.png" alt=""></button>
-                </div>
-              </div>
-              <div class="question__right">
-                <div class="question__right__body">
-                  <h2 class="question__right__title question__one__title">How to build a moon park?</h2>
-                  <span class="question__right__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
-                </div>
-                <div class="question__right__hrefs">
-                  <span class="question__right__hrefs__tags">Tags:</span>
-                  <a class="question__right__hrefs__item" href="#">black-jack</a>
-                  <a class="question__right__hrefs__item" href="#">bender</a>
-                </div>
-              </div>
-            </div>
-            <div class="answers__body">
-              <div class="question answer">
-                <div class="question__left">
-                  <img class="question__left__img" src="../static/img/avatar.png" alt="">
-                  <div class="question__left__likes">
-                    <span>5</span>
-                    <button><img src="../static/img/like.png" alt=""></button>
-                  </div>
-                </div>
-                <div class="question__right">
-                  <div class="question__right__body">
-                    <span class="question__right__text answer__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
-                  </div>
-                  <div class="question__right__hrefs">
-                    <form class="answer__form">
-                      <input class="answer__checkbox" id="answer" type="checkbox">
-                      <label class="answer__checkbox__text" for="answer">Correct!</label>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="question answer">
-                <div class="question__left">
-                  <img class="question__left__img" src="../static/img/avatar.png" alt="">
-                  <div class="question__left__likes">
-                    <span>5</span>
-                    <button><img src="../static/img/like.png" alt=""></button>
-                  </div>
-                </div>
-                <div class="question__right">
-                  <div class="question__right__body">
-                    <span class="question__right__text answer__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
-                  </div>
-                  <div class="question__right__hrefs">
-                    <form class="answer__form">
-                      <input class="answer__checkbox" id="answer" type="checkbox">
-                      <label class="answer__checkbox__text" for="answer">Correct!</label>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="answer__field">
-              <form class="answer__field__form" action="" method="get">
-                <textarea class="answer__field__text" placeholder="Enter your answer here!"></textarea>
-                <button class="answer__field__btn">Answer</button>
-              </form>
-            </div>
-          </div>
-          <div class="main__right">
-            <div class="main__right__inner">
-              <div class="right__tags">
-                <h2 class="tags__title">
-                  Popular Tags
-                </h2>
-                <div class="tags__body">
-                  <a class="tags__item" href="#">Perl</a>
-                  <a class="tags__item" href="#">Python</a>
-                  <a class="tags__item" href="#">MySQL</a>
-                  <a class="tags__item" href="#">Django</a>
-                  <a class="tags__item" href="#">Mail.ru</a>
-                  <a class="tags__item" href="#">Firefox</a>
-                </div>
-              </div>
-              <div class="right__members">
-                <h2 class="members__title">
-                  Best Members
-                </h2>
-                <div class="members__body">
-                  <ul>
-                    <li class="members__item"><a href="#">Mr. Freeman</a></li>
-                    <li class="members__item"><a href="#">Dr. House</a></li>
-                    <li class="members__item"><a href="#">Bender</a></li>
-                    <li class="members__item"><a href="#">Queen Victoria</a></li>
-                    <li class="members__item"><a href="#">V. Pupkin</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <footer class="footer">
-      
-    </footer>
-  </div>
-</body>
-</html>
+{% extends 'layouts/base.html' %}
 
+{% load static %}
+
+{% block content %}
+
+<div class="fragment">
+
+  <div class="question question__one">
+    <div class="question__left">
+      <img class="question__left__img question__avatar" src="{% static 'img/avatar.png' %}" alt="">
+      <div class="question__left__likes">
+        <span>5</span>
+        <button><img src="{% static 'img/like.png' %}" alt=""></button>
+      </div>
+    </div>
+    <div class="question__right">
+      <div class="question__right__body">
+        <h2 class="question__right__title question__one__title">{{question.title}}</h2>
+        <span class="question__right__text">{{question.content}}</span>
+      </div>
+      <div class="question__right__hrefs">
+        <span class="question__right__hrefs__tags">Tags:</span>
+        <a class="question__right__hrefs__item" href="#">black-jack</a>
+        <a class="question__right__hrefs__item" href="#">bender</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="answers__body">
+    
+    {% for answer in answers %}
+
+    {% include 'components/answer-item.html' %}
+
+    {% endfor %}
+
+    {% include 'components/paginator.html' %}
+
+  </div>
+  <div class="answer__field">
+    <form class="answer__field__form" action="" method="get">
+      <textarea class="answer__field__text" placeholder="Enter your answer here!"></textarea>
+      <button class="answer__field__btn">Answer</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

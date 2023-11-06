@@ -66,6 +66,10 @@ input {
     color: #fff;
 }
 
+.header__href {
+    color: #fff;
+}
+
 .header__search {
     border-radius: 20px;
     border: solid #000;
@@ -242,7 +246,6 @@ input {
 .questions__body {
     display: flex;
     flex-direction: column;
-    
 }
 
 .question {
@@ -398,6 +401,7 @@ input {
 .answers__body {
     margin-top: 20px;
     border-bottom: 2px solid #000;
+    padding-bottom: 20px;
 }
 
 .answer__field {
