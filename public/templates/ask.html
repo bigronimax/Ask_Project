@@ -5,11 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AskProject</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="static/reset.css"/>
-  <link rel="stylesheet" href="static/style.css"/>
+  <link rel="stylesheet" href="../static/reset.css"/>
+  <link rel="stylesheet" href="../static/style.css"/>
 </head>
 <body>
   <div class="wrapper">
@@ -26,7 +23,7 @@
           
             <div class="header__register">
               <div class="header__avatar__body">
-                <img class="header__avatar" src="static/img/avatar.png" alt="">
+                <img class="header__avatar" src="../static/img/avatar.png" alt="">
               </div>
               <div class="header__register__body">
                   <span class="header__register_name">Dr. Pepper</span>
@@ -41,7 +38,24 @@
       <div class="container">
         <div class="main__inner">
           <div class="fragment">
-            
+            <h2 class="new__question__title">New Question</h2>
+            <div class="new__question__body">
+                <form class="new__question__form" action="">
+                    <div class="question__input__title__body">
+                        <span>Title</span>
+                        <input type="text" class="question__input__title" placeholder="Enter your title here!">
+                    </div>
+                    <div class="question__input__text__body">
+                        <span>Text</span>
+                        <textarea class="question__input__text" name="" placeholder="Enter your text here!"></textarea>
+                    </div>
+                    <div class="question__input__tags__body">
+                        <span>Tags</span>
+                        <input type="text" class="question__input__tags" placeholder="Enter your tags here!">
+                    </div>
+                    <button class="question__input___btn">ASK!</button>
+                </form>
+            </div>
           </div>
           <div class="main__right">
             <div class="main__right__inner">
@@ -82,8 +96,6 @@
     </footer>
   </div>
 
-  
-  <script src="js/main.js"></script>
 </body>
 </html>
 

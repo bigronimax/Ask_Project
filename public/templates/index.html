@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AskProject</title>
-  <link rel="stylesheet" href="static/reset.css"/>
-  <link rel="stylesheet" href="static/style.css"/>
+  <link rel="stylesheet" href="../static/reset.css"/>
+  <link rel="stylesheet" href="../static/style.css"/>
 </head>
 <body>
   <div class="wrapper">
@@ -23,7 +23,7 @@
           
             <div class="header__register">
               <div class="header__avatar__body">
-                <img class="header__avatar" src="static/img/avatar.png" alt="">
+                <img class="header__avatar" src="../static/img/avatar.png" alt="">
               </div>
               <div class="header__register__body">
                   <span class="header__register_name">Dr. Pepper</span>
@@ -38,73 +38,85 @@
       <div class="container">
         <div class="main__inner">
           <div class="fragment">
-            <div class="question question__one">
-              <div class="question__left">
-                <img class="question__left__img question__avatar" src="static/img/avatar.png" alt="">
-                <div class="question__left__likes">
-                  <span>5</span>
-                  <button><img src="static/img/like.png" alt=""></button>
-                </div>
-              </div>
-              <div class="question__right">
-                <div class="question__right__body">
-                  <h2 class="question__right__title question__one__title">How to build a moon park?</h2>
-                  <span class="question__right__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
-                </div>
-                <div class="question__right__hrefs">
-                  <span class="question__right__hrefs__tags">Tags:</span>
-                  <a class="question__right__hrefs__item" href="#">black-jack</a>
-                  <a class="question__right__hrefs__item" href="#">bender</a>
-                </div>
-              </div>
+            <div class="questions__upper">
+              <h2 class="questions__upper__title">
+                New Questions
+              </h2>
+              <a href="" class="questions__upper__href">
+                Hot Questions
+              </a>
             </div>
-            <div class="answers__body">
-              <div class="question answer">
+            <div class="questions__body">
+              <div class="question">
                 <div class="question__left">
-                  <img class="question__left__img" src="static/img/avatar.png" alt="">
+                  <img class="question__left__img" src="../static/img/avatar.png" alt="">
                   <div class="question__left__likes">
                     <span>5</span>
-                    <button><img src="static/img/like.png" alt=""></button>
+                    <button><img src="../static/img/like.png" alt=""></button>
                   </div>
                 </div>
                 <div class="question__right">
                   <div class="question__right__body">
-                    <span class="question__right__text answer__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+                    <a class="question__right__title" href="#">How to build a moon park?</a>
+                    <span class="question__right__text">Guys, I have trouble with a moon park. Can't find the black-jack...</span>
                   </div>
                   <div class="question__right__hrefs">
-                    <form class="answer__form">
-                      <input class="answer__checkbox" id="answer" type="checkbox">
-                      <label class="answer__checkbox__text" for="answer">Correct!</label>
-                    </form>
+                    <a class="question__right__hrefs__answer" href="#">answer (3)</a>
+                    <span class="question__right__hrefs__tags">Tags:</span>
+                    <a class="question__right__hrefs__item" href="#">black-jack</a>
+                    <a class="question__right__hrefs__item" href="#">bender</a>
                   </div>
                 </div>
               </div>
-              <div class="question answer">
+              <div class="question">
                 <div class="question__left">
-                  <img class="question__left__img" src="static/img/avatar.png" alt="">
+                  <img class="question__left__img" src="../static/img/avatar.png" alt="">
                   <div class="question__left__likes">
                     <span>5</span>
-                    <button><img src="static/img/like.png" alt=""></button>
+                    <button><img src="../static/img/like.png" alt=""></button>
                   </div>
                 </div>
                 <div class="question__right">
                   <div class="question__right__body">
-                    <span class="question__right__text answer__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+                    <a class="question__right__title" href="#">How to build a moon park?</a>
+                    <span class="question__right__text">Guys, I have trouble with a moon park. Can't find the black-jack...</span>
                   </div>
                   <div class="question__right__hrefs">
-                    <form class="answer__form">
-                      <input class="answer__checkbox" id="answer" type="checkbox">
-                      <label class="answer__checkbox__text" for="answer">Correct!</label>
-                    </form>
+                    <a class="question__right__hrefs__answer" href="#">answer (3)</a>
+                    <span class="question__right__hrefs__tags">Tags:</span>
+                    <a class="question__right__hrefs__item" href="#">black-jack</a>
+                    <a class="question__right__hrefs__item" href="#">bender</a>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="answer__field">
-              <form class="answer__field__form" action="" method="get">
-                <textarea class="answer__field__text" placeholder="Enter your answer here!"></textarea>
-                <button class="answer__field__btn">Answer</button>
-              </form>
+              <div class="question">
+                <div class="question__left">
+                  <img class="question__left__img" src="../static/img/avatar.png" alt="">
+                  <div class="question__left__likes">
+                    <span>5</span>
+                    <button><img src="../static/img/like.png" alt=""></button>
+                  </div>
+                </div>
+                <div class="question__right">
+                  <div class="question__right__body">
+                    <a class="question__right__title" href="#">How to build a moon park?</a>
+                    <span class="question__right__text">Guys, I have trouble with a moon park. Can't find the black-jack...</span>
+                  </div>
+                  <div class="question__right__hrefs">
+                    <a class="question__right__hrefs__answer" href="#">answer (3)</a>
+                    <span class="question__right__hrefs__tags">Tags:</span>
+                    <a class="question__right__hrefs__item" href="#">black-jack</a>
+                    <a class="question__right__hrefs__item" href="#">bender</a>
+                  </div>
+                </div>
+              </div>
+              <div class="paginator">
+                <button class="paginator__btn">1</button>
+                <button class="paginator__btn">2</button>
+                <button class="paginator__btn">3</button>
+                <button class="paginator__btn">...</button>
+                <button class="paginator__btn">53</button>
+              </div>
             </div>
           </div>
           <div class="main__right">
@@ -145,7 +157,7 @@
       
     </footer>
   </div>
-  <script src="js/main.js"></script>
+
 </body>
 </html>
 

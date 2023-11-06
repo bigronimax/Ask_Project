@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AskProject</title>
-  <link rel="stylesheet" href="static/reset.css"/>
-  <link rel="stylesheet" href="static/style.css"/>
+  <link rel="stylesheet" href="../static/reset.css"/>
+  <link rel="stylesheet" href="../static/style.css"/>
 </head>
 <body>
   <div class="wrapper">
@@ -23,7 +23,7 @@
           
             <div class="header__register">
               <div class="header__avatar__body">
-                <img class="header__avatar" src="static/img/avatar.png" alt="">
+                <img class="header__avatar" src="../static/img/avatar.png" alt="">
               </div>
               <div class="header__register__body">
                   <span class="header__register_name">Dr. Pepper</span>
@@ -38,22 +38,21 @@
       <div class="container">
         <div class="main__inner">
           <div class="fragment">
-            <h2 class="new__question__title">New Question</h2>
-            <div class="new__question__body">
-                <form class="new__question__form" action="">
-                    <div class="question__input__title__body">
-                        <span>Title</span>
-                        <input type="text" class="question__input__title" placeholder="Enter your title here!">
-                    </div>
-                    <div class="question__input__text__body">
-                        <span>Text</span>
-                        <textarea class="question__input__text" name="" placeholder="Enter your text here!"></textarea>
-                    </div>
-                    <div class="question__input__tags__body">
-                        <span>Tags</span>
-                        <input type="text" class="question__input__tags" placeholder="Enter your tags here!">
-                    </div>
-                    <button class="question__input___btn">ASK!</button>
+            <h2 class="settings__title">Settings: Dr. Pepper</h2>
+            <div class="settings__body">
+              <div class="settings__texts">
+                <span class="settings__texts__item">Login</span>
+                <span class="settings__texts__item">Email</span>
+                <span class="settings__texts__item">NickName</span>
+                <span class="settings__texts__item">Upload avatar</span>
+              </div>
+                <form class="settings__form" action="">
+                  <input type="text" class="settings__input__item" placeholder="Enter your login here!" value="Dr_Pepper">                  
+                  <input type="email" class="settings__input__item" placeholder="Enter your mail here!" value="Drpepper@mail.ru">    
+                  <input type="text" class="settings__input__item" placeholder="Enter your nick here! value" value="Dr. Pepper">
+                  <img class="settings__photo" src="../static/img/avatar.png" alt="">
+                  <input type="file" class="settings__input__photo" name="photo" multiple accept="image/*,image/jpeg">
+                  <button class="settings__input__btn">Save</button>
                 </form>
             </div>
           </div>
@@ -96,8 +95,6 @@
     </footer>
   </div>
 
-  
-  <script src="js/main.js"></script>
 </body>
 </html>
 

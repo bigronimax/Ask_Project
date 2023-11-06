@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AskProject</title>
-  <link rel="stylesheet" href="static/reset.css"/>
-  <link rel="stylesheet" href="static/style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/reset.css"/>
+  <link rel="stylesheet" href="../static/style.css"/>
 </head>
 <body>
   <div class="wrapper">
@@ -23,7 +26,7 @@
           
             <div class="header__register">
               <div class="header__avatar__body">
-                <img class="header__avatar" src="static/img/avatar.png" alt="">
+                <img class="header__avatar" src="../static/img/avatar.png" alt="">
               </div>
               <div class="header__register__body">
                   <span class="header__register_name">Dr. Pepper</span>
@@ -38,23 +41,7 @@
       <div class="container">
         <div class="main__inner">
           <div class="fragment">
-            <h2 class="settings__title">Settings: Dr. Pepper</h2>
-            <div class="settings__body">
-              <div class="settings__texts">
-                <span class="settings__texts__item">Login</span>
-                <span class="settings__texts__item">Email</span>
-                <span class="settings__texts__item">NickName</span>
-                <span class="settings__texts__item">Upload avatar</span>
-              </div>
-                <form class="settings__form" action="">
-                  <input type="text" class="settings__input__item" placeholder="Enter your login here!" value="Dr_Pepper">                  
-                  <input type="email" class="settings__input__item" placeholder="Enter your mail here!" value="Drpepper@mail.ru">    
-                  <input type="text" class="settings__input__item" placeholder="Enter your nick here! value" value="Dr. Pepper">
-                  <img class="settings__photo" src="static/img/avatar.png" alt="">
-                  <input type="file" class="settings__input__photo" name="photo" multiple accept="image/*,image/jpeg">
-                  <button class="settings__input__btn">Save</button>
-                </form>
-            </div>
+            
           </div>
           <div class="main__right">
             <div class="main__right__inner">
@@ -96,7 +83,6 @@
   </div>
 
   
-  <script src="js/main.js"></script>
 </body>
 </html>
 
