@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>AskPupkin</title>
+  <title>AskProject</title>
   <link rel="stylesheet" href="static/reset.css"/>
   <link rel="stylesheet" href="static/style.css"/>
 </head>
@@ -14,7 +14,7 @@
       <div class="container">
           <div class="header__inner">
             <h1 class="header__title">
-              AskPupkin
+              AskProject
             </h1>
             <form class="header__form" action="" method="get">
               <input class="header__search" name="s" placeholder="Search" type="search">
@@ -22,8 +22,8 @@
             </form>
           
             <div class="header__register">
-              <div class="header__avatar">
-                  <img src="static/img/header-avatar.png" alt="">
+              <div class="header__avatar__body">
+                <img class="header__avatar" src="static/img/avatar.png" alt="">
               </div>
               <div class="header__register__body">
                   <span class="header__register_name">Dr. Pepper</span>
@@ -40,9 +40,10 @@
           <div class="fragment">
             <div class="question question__one">
               <div class="question__left">
-                <img class="question__one__avatar" src="static/img/header-avatar.png" alt="">
+                <img class="question__left__img question__avatar" src="static/img/avatar.png" alt="">
                 <div class="question__left__likes">
-                  <button>5 likes</button>
+                  <span>5</span>
+                  <button><img src="static/img/like.png" alt=""></button>
                 </div>
               </div>
               <div class="question__right">
@@ -60,9 +61,10 @@
             <div class="answers__body">
               <div class="question answer">
                 <div class="question__left">
-                  <img class="question__avatar" src="static/img/header-avatar.png" alt="">
+                  <img class="question__left__img" src="static/img/avatar.png" alt="">
                   <div class="question__left__likes">
-                    <button>5 likes</button>
+                    <span>5</span>
+                    <button><img src="static/img/like.png" alt=""></button>
                   </div>
                 </div>
                 <div class="question__right">
@@ -79,9 +81,10 @@
               </div>
               <div class="question answer">
                 <div class="question__left">
-                  <img class="question__avatar" src="static/img/header-avatar.png" alt="">
+                  <img class="question__left__img" src="static/img/avatar.png" alt="">
                   <div class="question__left__likes">
-                    <button>5 likes</button>
+                    <span>5</span>
+                    <button><img src="static/img/like.png" alt=""></button>
                   </div>
                 </div>
                 <div class="question__right">
@@ -111,13 +114,12 @@
                   Popular Tags
                 </h2>
                 <div class="tags__body">
-                  <a href="#">Perl</a>
-                  <a href="#">Python</a>
-                  <a href="#">MySQL</a>
-                  <a href="#">Django</a>
-                  <a href="#">Mail.ru</a>
-                  <a href="#">Firefox</a>
-                  <a href="#">Google</a>
+                  <a class="tags__item" href="#">Perl</a>
+                  <a class="tags__item" href="#">Python</a>
+                  <a class="tags__item" href="#">MySQL</a>
+                  <a class="tags__item" href="#">Django</a>
+                  <a class="tags__item" href="#">Mail.ru</a>
+                  <a class="tags__item" href="#">Firefox</a>
                 </div>
               </div>
               <div class="right__members">
@@ -125,11 +127,13 @@
                   Best Members
                 </h2>
                 <div class="members__body">
-                  <p class="members__item"><a href="#">Mr. Freeman</a></p>
-                  <p class="members__item"><a href="#">Dr. House</a></p>
-                  <p class="members__item"><a href="#">Bender</a></p>
-                  <p class="members__item"><a href="#">Queen Victoria</a></p>
-                  <p class="members__item"><a href="#">V. Pupkin</a></p>
+                  <ul>
+                    <li class="members__item"><a href="#">Mr. Freeman</a></li>
+                    <li class="members__item"><a href="#">Dr. House</a></li>
+                    <li class="members__item"><a href="#">Bender</a></li>
+                    <li class="members__item"><a href="#">Queen Victoria</a></li>
+                    <li class="members__item"><a href="#">V. Pupkin</a></li>
+                  </ul>
                 </div>
               </div>
             </div>

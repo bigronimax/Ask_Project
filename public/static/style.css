@@ -8,6 +8,7 @@ html {
 }
 
 body {
+    font-family: 'Roboto', sans-serif;
     background: #fff;
     font-size: 16px;
     line-height: 120%;
@@ -50,6 +51,7 @@ input {
 
 .header {
     border-bottom: 2px solid #000;
+    background-color: #000;
 }
 
 .header__inner {
@@ -61,22 +63,32 @@ input {
 
 .header__title {
     font-size: 50px;
+    color: #fff;
 }
 
 .header__search {
     border-radius: 20px;
     border: solid #000;
     margin-right: 10px;
+    font-size: 17px;
     width: 300px;
-    height: 30px;
+    height: 35px;
 }
 
 .header__ask {
-    background-color: green;
     color: #fff;
     padding: 4px 15px;
+    border-radius: 10px;
+    border: 3px solid green;
     font-size: 18px;
     box-shadow: 3px 3px  #000;
+    transition: all .5s;
+    
+}
+
+.header__ask:hover {
+    background-color: green;
+    
 }
 
 .header__register {
@@ -88,6 +100,8 @@ input {
 .header__avatar {
     width: 50px;
     height: 50px;
+    background-color: #fff;
+    padding: 3px;
 }
 
 .header__register__body {
@@ -101,8 +115,11 @@ input {
     font-size: 18px;
 }
 
-.header__register__settings, .header__register__log-out {
-    color: blue;
+.header__register__settings, .header__register__log-out, .header__register_name {
+    color: #fff;
+}
+
+.header__register__settings:hover, .header__register__log-out:hover {
     border-bottom: 1px solid;
 }
 
@@ -112,7 +129,10 @@ input {
 
 .header__register__log-in, .header__register__register {
     font-size: 20px;
-    color: blue;
+    color: #fff;
+}
+
+.header__register__log-in:hover, .header__register__register:hover {
     border-bottom: 1px solid;
 }
 
@@ -130,16 +150,17 @@ input {
 }
 
 .main__right {
-    margin-top: 70px;
+    margin-top: 50px;
+    float: right;
     width: 30%;
     display:flex;
     flex-direction: column;
     align-items: flex-end;
-    float: right;
+    
 }
 
 .main__right__inner {
-    max-width: 250px;
+    margin-left: 80px;
 }
 
 .right__tags {
@@ -159,6 +180,22 @@ input {
 .tags__title, .members__title {
     margin-bottom: 30px;
     font-size: 40px;
+    line-height: 30px;
+}
+.members__title {
+    font-size: 35px;
+}
+
+.tags__item {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 3px solid blue;
+    font-size: 18px;
+    transition: all .5s;
+}
+
+.tags__item:hover {
+    background-color: gainsboro;
 }
 
 .members__body {
@@ -176,7 +213,7 @@ input {
 
 .footer {
     height: 50px;
-    background-color: #c0c0c0;
+    background-color: #000;
     margin-top: 30px;
     border-top: 2px solid #000;
 }
@@ -221,11 +258,26 @@ input {
 
 .question__left__likes {
     text-align: center;
-    margin-top: 15px;
+    line-height: 50px;
+}
+
+.question__left__likes span {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.question__left__likes img {
+    vertical-align: middle;
+    margin-bottom: 10px;
 }
 
 .question__left {
     margin-right: 25px;
+}
+
+.question__left__img {
+    width: 50px;
+    height: 50px;
 }
 
 .question__right__title {
@@ -283,6 +335,11 @@ input {
     padding: 4px 10px;
     font-size: 18px;
     box-shadow: 3px 3px  #000;
+    transition: all .5s;
+}
+
+.paginator__btn:hover {
+    background-color: #9C9C9C;
 }
 
 .paginator__btn + .paginator__btn {
@@ -360,12 +417,17 @@ input {
 
 .answer__field__btn {
     margin-top: 20px;
-    background-color: grey;
+    border: 2px solid #000;
     color: #000;
     padding: 4px 15px;
     font-size: 18px;
     box-shadow: 3px 3px  #000;
     font-weight: 700;
+    transition: all .5s;
+}
+
+.answer__field__btn:hover {
+    background-color: #9C9C9C;
 }
 
 .new__question__title  {
@@ -418,7 +480,7 @@ input {
 .question__input__tags__body span {
     font-weight: 400;
     font-size: 20px;
-    margin-right: 30px;
+    margin-right: 26px;
 }
 
 .question__input__tags {
@@ -438,17 +500,22 @@ input {
     font-size: 18px;
     box-shadow: 3px 3px  #000;
     font-weight: 700;
-    margin-left: 71px;
+    margin-left: 73px;
+    transition: all .5s;
+}
+
+.question__input___btn:hover {
+    background-color: #9C9C9C;
 }
 
 .log__title {
     font-size: 40px;
-    margin-top: 25px;
+    margin-top: 30px;
     margin-bottom: 40px;
 }
 
 .log__input__login__body, .log__input__pass__body  {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .log__input__login__body span, .log__input__pass__body span{
@@ -458,7 +525,7 @@ input {
 }
 
 .log__input__login__body span {
-    margin-right: 59px;
+    margin-right: 69px;
 }
 
 
@@ -471,7 +538,7 @@ input {
 }
 
 .log__input__btn__body {
-    margin-left: 110px;
+    margin-left: 123px;
     margin-top: 20px;
 }
 
@@ -484,19 +551,24 @@ input {
     font-size: 18px;
     box-shadow: 3px 3px  #000;
     font-weight: 700;
+    transition: all .5s;
+}
+
+.log__input__btn:hover {
+    background-color: #9C9C9C;
 }
 
 .log__input__href {
     color: blue;
     border-bottom: 1px solid blue;
-    margin-top: 20px;
+    margin-top: 30px;
     display: inline-block;
     font-size: 18px;
 }
 
 .reg__title {
     font-size: 40px;
-    margin-top: 25px;
+    margin-top: 30px;
     margin-bottom: 40px;
 }
 
@@ -552,14 +624,19 @@ input {
     font-weight: 700;
     margin-top: 20px;
     width: 50%;
+    transition: all .5s;
 }
+.reg__input__btn:hover {
+    background-color: #9C9C9C;
+}
+
 
 
 
 
 .settings__title {
     font-size: 40px;
-    margin-top: 25px;
+    margin-top: 30px;
     margin-bottom: 40px;
 }
 
@@ -615,6 +692,11 @@ input {
     font-weight: 700;
     margin-top: 20px;
     width: 30%;
+    transition: all .5s;
+}
+
+.settings__input__btn:hover {
+    background-color: #9C9C9C;
 }
 
 .settings__photo {
