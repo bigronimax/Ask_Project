@@ -17,8 +17,11 @@
       <div class="question__right__hrefs">
         <a class="question__right__hrefs__answer" href="{% url 'question' question_id=question.id %}">answer ({{ question.answer_amount }})</a>
         <span class="question__right__hrefs__tags">Tags:</span>
-        <a class="question__right__hrefs__item" href="#">black-jack</a>
-        <a class="question__right__hrefs__item" href="#">bender</a>
+        {% for question_tag in question.tags %}
+
+        {% include 'components/question-tags-item.html' %}
+
+        {% endfor %}
       </div>
     </div>
   </div>
