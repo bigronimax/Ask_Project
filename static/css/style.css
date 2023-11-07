@@ -341,6 +341,14 @@ input {
     transition: all .5s;
 }
 
+.paginator__span {
+    border: 2px solid #000;
+    color: #000;
+    padding: 4px 10px;
+    font-size: 18px;
+    box-shadow: 3px 3px  #000;
+}
+
 .paginator__btn:hover {
     background-color: #9C9C9C;
 }
