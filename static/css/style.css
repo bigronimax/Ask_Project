@@ -148,15 +148,19 @@ input {
     flex: 1 1 auto;
 }
 
+.main__inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+
 .fragment {
-    float: left;
     width: 70%;
 }
 
 .main__right {
     margin-top: 50px;
-    float: right;
-    width: 30%;
+    width: 30%; 
     display:flex;
     flex-direction: column;
     align-items: flex-end;
@@ -172,6 +176,10 @@ input {
     max-width: inherit;
 }
 
+.tags__body {
+    display: flex;
+    flex-wrap: wrap;
+}
 
 .tags__body a {
     display: inline-block;
@@ -259,19 +267,44 @@ input {
     margin-top: 25px;
 }
 
+.question__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .question__left__likes {
-    text-align: center;
-    line-height: 50px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    
 }
 
-.question__left__likes span {
-    vertical-align: middle;
-    margin-right: 3px;
+.question__left__likes__ans {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    margin-top: 10px;
 }
 
-.question__left__likes img {
-    vertical-align: middle;
-    margin-bottom: 10px;
+.question__left__likes__one {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.question__left__likes span, .question__left__likes__ans span, .question__left__likes__one span {
+    font-size: 20px;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.question__left__likes img, .question__left__likes__ans img, .question__left__likes__one img {
+    display: block;
+    margin-bottom: 5px;
+    height: 23px;
+    width: 23px;
 }
 
 .question__left {
@@ -330,9 +363,10 @@ input {
 
 .paginator {
     margin-top: 30px;
+    margin-bottom: 10px;
 }
 
-.paginator__btn, .paginator__span {
+.paginator__btn {
     border: 2px solid #000;
     color: #000;
     padding: 4px 10px;
@@ -341,17 +375,12 @@ input {
     transition: all .5s;
 }
 
-.paginator__span:hover {
-    background-color: #fff;
-}
-
 .paginator__btn:hover {
     background-color: #9C9C9C;
 }
 
-.paginator__span {
-    margin-left: 10px;
-    margin-right: 10px;
+span.paginator__btn:hover {
+    background-color: #fff;
 }
 
 .paginator__btn + .paginator__btn {
@@ -363,6 +392,7 @@ input {
     border: none;
     border-bottom: 2px solid #000;
     padding: 0;
+    padding-bottom: 5px;
 }
 
 .question__one__title {
@@ -382,6 +412,7 @@ input {
 .question__avatar {
     width: 75px;
     height: 75px;
+    margin-bottom: 10px;
 }
 
 .answer__form {
@@ -642,10 +673,6 @@ input {
 .reg__input__btn:hover {
     background-color: #9C9C9C;
 }
-
-
-
-
 
 .settings__title {
     font-size: 40px;

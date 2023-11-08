@@ -25,16 +25,20 @@
               <input class="header__search" name="s" placeholder="Search" type="search">
               <button class="header__ask">Ask!</button>
             </form>
-          
             <div class="header__register">
+              {% if True %}
               <div class="header__avatar__body">
                 <img class="header__avatar" src="{% static '/img/avatar.png' %}" alt="">
               </div>
               <div class="header__register__body">
-                  <span class="header__register_name">Dr. Pepper</span>
-                  <a class="header__register__settings" href="{% url 'settings' %}">settings</a>
-                  <a class="header__register__log-out" href="#">log out</a>
+                <span class="header__register_name">Dr. Pepper</span>
+                <a class="header__register__settings" href="{% url 'settings' %}">settings</a>
+                <a class="header__register__log-out" href="?log=False">log out</a>
               </div>
+              {% else %}
+              <a class="header__register__log-in" href="{% url 'login' %}">log in</a>
+              <a class="header__register__register" href="{% url 'signup' %}">register</a>
+              {% endif %}
             </div>
           </div>
       </div>
