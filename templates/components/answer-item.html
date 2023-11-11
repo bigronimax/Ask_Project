@@ -5,7 +5,7 @@
       <img class="question__left__img" src="{% static 'img/avatar.png' %}" alt="">
       <div class="question__left__likes__ans">
         <button><img src="{% static 'img/like.png' %}" alt=""></button>
-        <span>42</span>
+        <span>{{ answer.like }}</span>
       </div>
     </div>
     <div class="question__right">
@@ -17,6 +17,7 @@
           <input class="answer__checkbox" id="answer" type="checkbox">
           <label class="answer__checkbox__text" for="answer">Correct!</label>
         </form>
+        <span class="question__right__hrefs__date">Date: {{ answer.date }}</span>
       </div>
     </div>
   </div>

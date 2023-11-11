@@ -11,7 +11,7 @@
       <img class="question__left__img question__avatar" src="{% static 'img/avatar.png' %}" alt="">
       <div class="question__left__likes__one">
         <button><img src="{% static 'img/like.png' %}" alt=""></button>
-        <span>42</span>
+        <span>{{ question.like }}</span>
       </div>
     </div>
     <div class="question__right">
@@ -21,11 +21,12 @@
       </div>
       <div class="question__right__hrefs">
         <span class="question__right__hrefs__tags">Tags:</span>
-        {% for question_tag in question.tags %}
+        {% for question_tag in question.tags.all %}
 
         {% include 'components/question-tags-item.html' %}
 
         {% endfor %}
+        <span class="question__right__hrefs__date">Date: {{ question.date }}</span>
       </div>
     </div>
   </div>

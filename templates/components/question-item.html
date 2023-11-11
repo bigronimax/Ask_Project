@@ -6,7 +6,7 @@
       <img class="question__left__img" src="{% static 'img/avatar.png' %}" alt="">
       <div class="question__left__likes">
         <button><img src="{% static 'img/like.png' %}" alt=""></button>
-        <span>42</span>
+        <span>{{ question.like }}</span>
       </div>
     </div>
     <div class="question__right">
@@ -15,13 +15,14 @@
         <span class="question__right__text">{{ question.content }}</span>
       </div>
       <div class="question__right__hrefs">
-        <a class="question__right__hrefs__answer" href="{% url 'question' question_id=question.id %}">answer ({{ question.answer_amount }})</a>
+        <a class="question__right__hrefs__answer" href="{% url 'question' question_id=question.id %}">answers,</a>
         <span class="question__right__hrefs__tags">Tags:</span>
-        {% for question_tag in question.tags %}
+        {% for question_tag in question.tags.all %}
 
         {% include 'components/question-tags-item.html' %}
 
         {% endfor %}
+        <span class="question__right__hrefs__date">Date: {{ question.date }}</span>
       </div>
     </div>
   </div>

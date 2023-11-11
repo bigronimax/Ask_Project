@@ -270,8 +270,11 @@ input {
 .question__left {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
+}
+
+.question__left__img {
+    margin-bottom: 15px;
 }
 
 .question__left__likes {
@@ -285,7 +288,6 @@ input {
     display: flex;
     align-items: center;
     margin-bottom: 0;
-    margin-top: 10px;
 }
 
 .question__left__likes__one {
@@ -352,6 +354,11 @@ input {
     margin-right: 15px;
 }
 
+.question__right__hrefs__date {
+    font-size: 17px; 
+    margin-left: 20px;
+}
+
 .question__right__hrefs__item {
     color: blue;
     border-bottom: 1px solid blue;
@@ -412,7 +419,7 @@ span.paginator__btn:hover {
 .question__avatar {
     width: 75px;
     height: 75px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .answer__form {
