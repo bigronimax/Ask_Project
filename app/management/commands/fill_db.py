@@ -37,7 +37,7 @@ class Command(BaseCommand):
 
         profiles = [
             Profile(
-                profile = User.objects.create_user(username=f'{fake.unique.name()} + {i}')
+                profile = User.objects.create_user(username=f'{fake.name()}_{i}')
             ) for i in range(num)
         ]
 
@@ -54,7 +54,7 @@ class Command(BaseCommand):
                 content = fake.text(),
                 like = likes[fake.random_int(min=0, max=likes_count-1)],
                 profile = profiles[fake.random_int(min=0, max=profiles_count-1)],
-                date = str(fake.date_between(datetime(2022,1,1), datetime(2023,12,31)))
+                # date = str(fake.date_between(datetime(2022,1,1), datetime(2023,12,31)))
             ) 
             q.save()
             q.tags.add(tags[fake.random_int(min=0, max=tags_count-1)])
@@ -69,7 +69,7 @@ class Command(BaseCommand):
                 content = fake.text(),
                 like = likes[fake.random_int(min=0, max=likes_count-1)],
                 profile = profiles[fake.random_int(min=0, max=profiles_count-1)],
-                date = str(fake.date_between(datetime(2022,1,1), datetime(2023,12,31)))
+                # date = str(fake.date_between(datetime(2022,1,1), datetime(2023,12,31)))
             ) for i in range(num*100)
         ]
         Answer.objects.bulk_create(answers)

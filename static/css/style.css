@@ -230,6 +230,24 @@ input {
     border-top: 2px solid #000;
 }
 
+.arrow {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.arrow__up {
+    color: green;
+}
+
+.arrow__down {
+    color: red;
+}
+
+.arrow + .arrow {
+    margin-top: 5px;
+}
+
+
 .questions__upper {
     margin-top: 30px;
     margin-bottom: 40px;
@@ -563,6 +581,12 @@ span.paginator__btn:hover {
     font-size: 40px;
     margin-top: 30px;
     margin-bottom: 40px;
+}
+
+.log__error, .reg__error {
+    color: red;
+    display: block;
+    margin-bottom: 15px;
 }
 
 .log__input__login__body, .log__input__pass__body  {

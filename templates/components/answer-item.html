@@ -4,7 +4,10 @@
     <div class="question__left">
       <img class="question__left__img" src="{% static 'img/avatar.png' %}" alt="">
       <div class="question__left__likes__ans">
-        <button><img src="{% static 'img/like.png' %}" alt=""></button>
+        <div class="arrows">
+          <button class="arrow arrow__up">&#8743;</button>
+          <button class="arrow arrow__down">&#8744;</button>
+        </div>
         <span>{{ answer.like }}</span>
       </div>
     </div>

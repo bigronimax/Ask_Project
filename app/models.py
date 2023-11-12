@@ -27,11 +27,13 @@ class Question(models.Model):
     like = models.ForeignKey('Like' , on_delete=models.PROTECT)
     tags = models.ManyToManyField('Tag', blank=True)
     date = models.DateField(blank=False, null=True)
+    
 
     objects = QuestionManager()
 
     def __str__(self):
         return f'Question: {self.title}'
+
 
 
 class Answer(models.Model):
