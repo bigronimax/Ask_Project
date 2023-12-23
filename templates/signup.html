@@ -1,30 +1,21 @@
 {% extends 'layouts/base.html' %}
+{% load django_bootstrap5 %}
 
 
 {% block content %}
 
 <div class="fragment">
   <h2 class="reg__title">Registration</h2>
-  <span class="reg__error">Sorry, this email address already registred!</span>
   <div class="reg__body">
-    <div class="reg__texts">
-      <span class="reg__texts__item">Login</span>
-      <span class="reg__texts__item">Email</span>
-      <span class="reg__texts__item">NickName</span>
-      <span class="reg__texts__item">Password</span>
-      <span class="reg__texts__item">Repeat password</span>
-      <span class="reg__texts__item">Upload avatar</span>
-    </div>
-    <form class="reg__form" action="">
-      <input type="text" class="reg__input__item" placeholder="Enter your login here!" required>                  
-      <input type="email" class="reg__input__item" placeholder="Enter your mail here!" required>    
-      <input type="text" class="reg__input__item" placeholder="Enter your nick here!" required>
-      <input type="password" class="reg__input__item" placeholder="Enter your pass here!" required>
-      <input type="password" class="reg__input__item" placeholder="Repeat your pass here!" required>
-      <input type="file" class="reg__input__photo" name="photo" multiple accept="image/*,image/jpeg">
+    <form class="reg__form needs-validation" method="post" novalidate>
+      {% csrf_token %}
+
+      {% bootstrap_form form %}
+
       <button class="reg__input__btn">Register!</button>
     </form>
   </div>
 </div>
 
 {% endblock %}
+

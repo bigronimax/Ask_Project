@@ -10,7 +10,7 @@ class QuestionManager(models.Manager):
         return self.filter(tags__name=tag)
     
     def get_hot(self):
-        return self.filter(like__amount__gte=90000).order_by('-like__amount')
+        return self.filter(like__amount__gte=90000).order_by('-rating__amount')
     
     def get_new(self):
         return self.order_by('-date')
@@ -21,10 +21,10 @@ class AnswerManager(models.Manager):
         return self.filter(question=question).order_by('-date')
 
 class Question(models.Model):
-    title = models.CharField(max_length=255, blank=False)
-    content = models.TextField(blank=False)
+    title = models.CharField(max_length=50, blank=False)
+    content = models.TextField(blank=False, max_length=200)
     profile = models.ForeignKey('Profile', on_delete=models.PROTECT, blank=True, null=True, default="")
-    like = models.ForeignKey('Like' , on_delete=models.PROTECT)
+    rating = models.IntegerField(default=0)
     tags = models.ManyToManyField('Tag', blank=True)
     date = models.DateField(blank=False, null=True)
     
@@ -40,7 +40,7 @@ class Answer(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE, blank=False, default="")
     content = models.TextField(blank=False)
     profile = models.ForeignKey('Profile' , on_delete=models.PROTECT, blank=True, null=True, default="")
-    like = models.ForeignKey('Like' , on_delete=models.PROTECT)
+    rating = models.IntegerField(default=0)
     date = models.DateField(blank=False, null=True)
 
     objects = AnswerManager()
@@ -63,13 +63,16 @@ class Tag(models.Model):
     def __str__(self):
         return f'Tag: {self.name}'
 
-class Like(models.Model):
-    amount = models.IntegerField()
+class QuestionLike(models.Model):
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
+    like = models.BooleanField()
 
-    def __str__(self):
-        return f'{self.amount}'
+class AnswerLike(models.Model):
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    answer = models.ForeignKey('Answer', on_delete=models.CASCADE)
+    like = models.BooleanField()
     
-
 
 def paginate(request, objects, per_page=3):
     paginator = Paginator(objects, per_page)

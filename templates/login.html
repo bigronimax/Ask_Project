@@ -1,24 +1,18 @@
 {% extends 'layouts/base.html' %}
+{% load django_bootstrap5 %}
 
 {% block content %}
 
 <div class="fragment">
   <h2 class="log__title">Log In</h2>
   <div class="log__body">
-    <span class="log__error">Sorry, wrong login or password!</span>
-    <form class="log__form" action="">
-      <div class="log__input__login__body">
-        <span>Login</span>
-        <input type="text" class="log__input__login" placeholder="Enter your login here!" required>
-      </div>
-      <div class="log__input__pass__body">
-        <span>Password</span>
-        <input type="text" class="log__input__pass" placeholder="Enter your pass here!" required>
-      </div>
-      <div class="log__input__btn__body">
-        <button class="log__input__btn">Log in!</button>
-        <a class="log__input__href" href="{% url 'signup' %}">create new account</a>
-      </div>
+    <form class="col-6 needs-validation log__form" method="post" novalidate>
+      {% csrf_token %}
+
+      {% bootstrap_form form %}
+      
+      <button class="log__input__btn">Log in!</button>
+      <a class="log__input__href" href="{% url 'signup' %}">create new account</a>
     </form>
   </div>
 </div>

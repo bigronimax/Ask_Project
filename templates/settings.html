@@ -1,27 +1,22 @@
 {% extends 'layouts/base.html' %}
+{% load django_bootstrap5 %}
 
 {% load static %}
 
 {% block content %}
 
 <div class="fragment">
-  <h2 class="settings__title">Settings: Dr. Pepper</h2>
-  <div class="settings__body">
-    <div class="settings__texts">
-      <span class="settings__texts__item">Login</span>
-      <span class="settings__texts__item">Email</span>
-      <span class="settings__texts__item">NickName</span>
-      <span class="settings__texts__item">Upload avatar</span>
-    </div>
-      <form class="settings__form" action="">
-        <input type="text" class="settings__input__item" placeholder="Enter your login here!" value="Dr_Pepper">                  
-        <input type="email" class="settings__input__item" placeholder="Enter your mail here!" value="Drpepper@mail.ru">    
-        <input type="text" class="settings__input__item" placeholder="Enter your nick here! value" value="Dr. Pepper">
-        <img class="settings__photo" src="{% static 'img/avatar.png' %}" alt="">
-        <input type="file" class="settings__input__photo" name="photo" multiple accept="image/*,image/jpeg">
-        <button class="settings__input__btn">Save</button>
-      </form>
-  </div>
+  <h2 class="settings__title">Settings: {{user.username}}</h2>
+
+  <form class="col-6 settings__form needs-validation" method="post" novalidate>
+    {% csrf_token %}
+
+    {% bootstrap_form form %}
+   
+    <button class="settings__input__btn">Save</button>
+  </form>
+
 </div>
 
 {% endblock %}
+

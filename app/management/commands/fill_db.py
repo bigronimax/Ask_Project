@@ -2,7 +2,7 @@ from django.core.management import BaseCommand
 from random import randint
 from faker import Faker
 from datetime import datetime
-from app.models import Question, Answer, Like, Tag, Profile, User
+from app.models import Question, Answer, QuestionLike, AnswerLike, Tag, Profile, User
 
 fake = Faker()
 
@@ -32,16 +32,6 @@ class Command(BaseCommand):
         tags = Tag.objects
         tags_count = tags.count()
 
-        likes = [
-            Like(
-                amount = fake.random_int(0, 100000)
-            ) for i in range(likes_size)
-        ]
-
-        Like.objects.bulk_create(likes)
-        likes = Like.objects
-        likes_count = likes.count()
-
         profiles = [
             Profile(
                 profile = User.objects.create_user(username=f'{fake.name()}_{i}')
@@ -59,7 +49,7 @@ class Command(BaseCommand):
             q = Question(
                 title = fake.sentence(nb_words=3),
                 content = fake.text(),
-                like = likes.get(pk=randint(1, likes_count)),
+                rating = randint(0, 100000),
                 profile = profiles.get(pk=randint(1, profiles_count)),
                 date = str(fake.date_between(datetime(2022,1,1), datetime(2023,12,31)))
             ) 
@@ -74,9 +64,32 @@ class Command(BaseCommand):
             Answer(
                 question = questions.get(pk=randint(1, questions_count)),
                 content = fake.text(),
-                like = likes.get(pk=randint(1, likes_count)),
+                rating = randint(0, 100000),
                 profile = profiles.get(pk=randint(1, profiles_count)),
                 date = str(fake.date_between(datetime(2022,1,1), datetime(2023,12,31)))
             ) for i in range(answers_size)
         ]
         Answer.objects.bulk_create(answers)
+        answers = Answer.objects
+        answers_count = answers.count()
+
+        questionLikes = [
+            QuestionLike(
+                profile = profiles.get(pk=randint(1, profiles_count)),
+                question = questions.get(pk=randint(1, questions_count)),
+                like = randint(0, 1)
+            ) for i in range(likes_size // 2)
+        ]
+
+        QuestionLike.objects.bulk_create(questionLikes)
+
+        answerLikes = [
+            AnswerLike(
+                profile = profiles.get(pk=randint(1, profiles_count)),
+                answer = answers.get(pk=randint(1, answers_count)),
+                like = randint(0, 1)
+            ) for i in range(likes_size // 2)
+        ]
+
+        AnswerLike.objects.bulk_create(answerLikes)
+        

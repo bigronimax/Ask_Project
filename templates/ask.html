@@ -1,26 +1,19 @@
 {% extends 'layouts/base.html' %}
-
+{% load django_bootstrap5 %}
 
 {% block content %}
 <div class="fragment">
   <h2 class="new__question__title">New Question</h2>
   <div class="new__question__body">
-    <form class="new__question__form" action="">
-      <div class="question__input__title__body">
-        <span>Title</span>
-        <input type="text" class="question__input__title" placeholder="Enter your title here!">
-      </div>
-      <div class="question__input__text__body">
-        <span>Text</span>
-        <textarea class="question__input__text" name="" placeholder="Enter your text here!"></textarea>
-      </div>
-      <div class="question__input__tags__body">
-        <span>Tags</span>
-        <input type="text" class="question__input__tags" placeholder="Enter your tags here!">
-        </div>
+    <form class="new__question__form needs-validation" method="post" novalidate>
+      
+      {% csrf_token %}
+      {% bootstrap_form form %}
+
       <button class="question__input___btn">ASK!</button>
     </form>
   </div>
 </div>
 {% endblock %}
+
           

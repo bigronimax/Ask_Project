@@ -231,6 +231,7 @@ input {
 }
 
 .arrow {
+    display: block;
     font-size: 20px;
     font-weight: 700;
 }
@@ -263,6 +264,13 @@ input {
     border-bottom: 1px solid;
     font-size: 20px;
     color: blue
+}
+
+.questions__upper__href-ask {
+    border-bottom: 1px solid;
+    font-size: 20px;
+    color: blue;
+    margin-left: 0px;
 }
 
 .questions__upper__tag {
@@ -774,4 +782,8 @@ span.paginator__btn:hover {
     height: 100px;
     width: 100px;
     margin-top: 20px;
+}
+
+.text-danger li {
+    margin-bottom: 20px;
 }
