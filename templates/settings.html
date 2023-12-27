@@ -8,10 +8,12 @@
 <div class="fragment">
   <h2 class="settings__title">Settings: {{user.username}}</h2>
 
-  <form class="col-6 settings__form needs-validation" method="post" novalidate>
+  <form class="col-6 settings__form needs-validation" method="post" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
 
     {% bootstrap_form form %}
+
+    <img class="settings__avatar" src="{{ request.user.profile.avatar.url }}" alt="avatar">
    
     <button class="settings__input__btn">Save</button>
   </form>

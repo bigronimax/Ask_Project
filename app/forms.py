@@ -50,39 +50,44 @@ class RegisterForm(forms.ModelForm):
         Profile.objects.create(profile=user)
         return user
     
-class ProfileForm(forms.Form):
-    username = forms.CharField(required=False)
-    email = forms.EmailField(required=False)
-    image = forms.ImageField(required=False)
+class ProfileForm(forms.ModelForm):
+    avatar = forms.ImageField(required=False)
 
-    def __init__(self, user, *args, **kwargs):
-        self.user: User = user
-        super().__init__(*args, **kwargs)
-        self.fields['username'].initial = self.user.username
-        self.fields['email'].initial = self.user.email
+    class Meta:
+        model = User
+        fields = ['username', 'email']
 
-    def clean_username(self):
+    def clean_username(self, **kwargs):
+        user = super().save(**kwargs)
         new_username = self.cleaned_data.get('username')
-        if User.objects.filter(username=new_username).all().count() and new_username != self.user.username:
+        if User.objects.filter(username=new_username).all().count() and new_username != user.username:
             raise ValidationError('Username is already exists!')
         return new_username
     
-    def clean_email(self):
+    def clean_email(self, **kwargs):
+        user = super().save(**kwargs)
         new_email = self.cleaned_data.get('email')
         validate_email(new_email)
-        if User.objects.filter(email=new_email).all().count() and new_email != self.user.email:
+        if User.objects.filter(email=new_email).all().count() and new_email != user.email:
             raise ValidationError('Email is already exists!')
         return new_email
+    
+    def save(self, **kwargs):
+        user = super().save(**kwargs)
 
-    def save(self):
+        profile = user.profile
+        received_avatar = self.cleaned_data.get('avatar')
         new_username = self.cleaned_data.get('username')
         new_email = self.cleaned_data.get('email')
-        image = self.cleaned_data.get('avatar')
-        if new_username != self.user.username:
-            self.user.username = new_username
-        if new_email != self.user.email:
-            self.user.email = new_email
-        self.user.save()
+        if new_username != user.username:
+            user.username = new_username
+        if new_email != user.email:
+            user.email = new_email
+        if received_avatar:
+            profile.avatar = self.cleaned_data.get('avatar')
+            profile.save()
+
+        return user
 
 class AskForm(forms.ModelForm):
     tags = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Example: python, mail.ru, c++'}))
@@ -130,6 +135,7 @@ class AskForm(forms.ModelForm):
         return question
     
 class AnswerForm(forms.ModelForm):
+    
     def __init__(self, user, question_id, *args, **kwargs):
         self.user: User = user
         self.question_id = question_id
@@ -145,5 +151,8 @@ class AnswerForm(forms.ModelForm):
         answer = Answer(profile=profile, question=question, content=self.cleaned_data['content'])
         answer.save()
         return answer
+    
+    def content(self):
+        return self.cleaned_data['content']
     
 

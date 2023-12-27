@@ -4,11 +4,11 @@
     <div class="question__left">
       <img class="question__left__img" src="{% static 'img/avatar.png' %}" alt="">
       <div class="question__left__likes__ans">
-        <div class="arrows">
+        <div class="rating-section arrows">
           <button class="arrow arrow__up">&#8743;</button>
           <button class="arrow arrow__down">&#8744;</button>
         </div>
-        <span>{{ answer.rating }}</span>
+        <span class="counter">{{ answer.rating }}</span>
       </div>
     </div>
     <div class="question__right">

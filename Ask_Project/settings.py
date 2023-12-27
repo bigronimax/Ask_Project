@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -137,3 +138,17 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/uploads/'
+
+CENTRIFUGO_TOKEN_HMAC_SECRET_KEY = "my_secret"
+CENTRIFUGO_WS_URL = "ws://localhost:8000/connection/websocket"
+CENTRIFUGO_API_URL = "http://localhost:8000/api"
+CENTRIFUGO_API_KEY = "my_api_key"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": "/var/tmp/django_cache",
+    }
+}
