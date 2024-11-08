@@ -51,7 +51,7 @@ class Command(BaseCommand):
                 content = fake.text(),
                 rating = randint(0, 100000),
                 profile = profiles.get(pk=randint(1, profiles_count)),
-                date = str(fake.date_between(datetime(2022,1,1), datetime(2023,12,31)))
+                date = str(fake.date_time_between(datetime(2022,1,1, 0, 0, 0, 0), datetime(2023,12,31, 0, 0, 0, 0)))
             ) 
             q.save()
             q.tags.add(tags.get(pk=randint(1, tags_count)))
@@ -66,30 +66,48 @@ class Command(BaseCommand):
                 content = fake.text(),
                 rating = randint(0, 100000),
                 profile = profiles.get(pk=randint(1, profiles_count)),
-                date = str(fake.date_between(datetime(2022,1,1), datetime(2023,12,31)))
+                date = str(fake.date_time_between(datetime(2022,1,1, 0, 0, 0, 0), datetime(2023,12,31, 0, 0, 0, 0)))
             ) for i in range(answers_size)
         ]
         Answer.objects.bulk_create(answers)
         answers = Answer.objects
         answers_count = answers.count()
 
-        questionLikes = [
-            QuestionLike(
-                profile = profiles.get(pk=randint(1, profiles_count)),
-                question = questions.get(pk=randint(1, questions_count)),
-                like = randint(0, 1)
-            ) for i in range(likes_size // 2)
-        ]
+        questionLikes = []
+        cnt = 0
+        profiles_cnt = 0
+        while (cnt != likes_size // 2):
+            profiles_cnt += 1
+            profile = profiles.get(pk=profiles_cnt)
+            for i in range(1, questions_count+1):
+                question = questions.get(pk=i)
+                questionLikes.append(QuestionLike(
+                    profile = profile,
+                    question = question,
+                    like = randint(0, 1)
+                )) 
+                cnt += 1
+                if (cnt == likes_size // 2):
+                    break     
 
         QuestionLike.objects.bulk_create(questionLikes)
 
-        answerLikes = [
-            AnswerLike(
-                profile = profiles.get(pk=randint(1, profiles_count)),
-                answer = answers.get(pk=randint(1, answers_count)),
-                like = randint(0, 1)
-            ) for i in range(likes_size // 2)
-        ]
-
+        answerLikes = []
+        cnt = 0
+        profiles_cnt = 0
+        while (cnt != likes_size // 2):
+            profiles_cnt += 1
+            profile = profiles.get(pk=profiles_cnt)
+            for i in range(1, answers_count+1):
+                answer = answers.get(pk=i)
+                answerLikes.append(AnswerLike(
+                    profile = profile,
+                    answer = answer,
+                    like = randint(0, 1)
+                ))  
+                cnt += 1
+                if (cnt == likes_size // 2):
+                    break     
+                
         AnswerLike.objects.bulk_create(answerLikes)
         

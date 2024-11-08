@@ -41,7 +41,7 @@ class Question(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.PROTECT, blank=True, null=True, default="")
     rating = models.IntegerField(default=0)
     tags = models.ManyToManyField('Tag', blank=True)
-    date = models.DateField(blank=False, null=True)
+    date = models.DateTimeField(blank=False, null=True)
     
 
     objects = QuestionManager()
@@ -56,7 +56,7 @@ class Answer(models.Model):
     content = models.TextField(blank=False)
     profile = models.ForeignKey('Profile' , on_delete=models.PROTECT, blank=True, null=True, default="")
     rating = models.IntegerField(default=0)
-    date = models.DateField(blank=False, null=True)
+    date = models.DateTimeField(blank=False, null=True)
 
     objects = AnswerManager()
 
@@ -87,10 +87,16 @@ class QuestionLike(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE)
     like = models.BooleanField()
 
+    class Meta:
+        unique_together = ('profile', 'question')
+
 class AnswerLike(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     answer = models.ForeignKey('Answer', on_delete=models.CASCADE)
     like = models.BooleanField()
+
+    class Meta:
+        unique_together = ('profile', 'answer')
     
 
 def paginate(request, objects, per_page=3):
