@@ -71,9 +71,7 @@ def question(request, question_id):
         if answer_form.is_valid():
             answer_form.save()
 
-            print(answer_form.content())
             data = {"content": "data"}
-            client.publish(f'{question_id}', data)
 
             last_page = ceil(len(models.Answer.objects.get_answers(item)) / 3)
             redirect_url = reverse('question', args=[question_id]) + f'?page={last_page}'
