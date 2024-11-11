@@ -7,9 +7,13 @@ from django.forms import model_to_dict
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
 from . import models
 from django.conf import settings as conf_settings
 from django.core.cache import cache
+from .models import Question, QuestionLike, Answer, AnswerLike
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 import app.forms
 
 
@@ -142,3 +146,26 @@ def signup(request):
                 user_form.add_error(None, 'Error with creating a new account!')
     return render(request, 'signup.html', {'tags': get_popular_tags(), 'members': get_popular_profiles(), 'form': user_form})
 
+@csrf_protect
+@login_required(login_url="login", redirect_field_name="continue")
+def questionLike(request):
+    id = request.POST.get("question_id")
+    question = get_object_or_404(Question, pk=id)
+    if int(request.POST.get("like")) == 1:
+        QuestionLike.objects.toggle_like(profile=request.user.profile, question=question)
+    elif int(request.POST.get("like")) == 0:
+        QuestionLike.objects.toggle_dislike(profile=request.user.profile, question=question)
+    likes_count = question.rating
+    return JsonResponse({"count": likes_count})
+
+@csrf_protect
+@login_required(login_url="login", redirect_field_name="continue")
+def answerLike(request):
+    id = request.POST.get("answer_id")
+    answer = get_object_or_404(Answer, pk=id)
+    if int(request.POST.get("like")) == 1:
+        AnswerLike.objects.toggle_like(profile=request.user.profile, answer=answer)
+    elif int(request.POST.get("like")) == 0:
+        AnswerLike.objects.toggle_dislike(profile=request.user.profile, answer=answer)
+    likes_count = answer.rating
+    return JsonResponse({"count": likes_count})

@@ -35,6 +35,75 @@ class ProfileManager(models.Manager):
         # enddate = startdate + timedelta(days=6)
         # return self.filter(date__range=[startdate, enddate]).order_by('-rating')[:10]
 
+class QuestionLikeManager(models.Manager):
+    def toggle_like(self, profile, question):
+        if not(self.filter(profile=profile, question=question).exists()) or self.filter(profile=profile, question=question, like=0).exists() or self.filter(profile=profile, question=question, like=None).exists():
+            if not(self.filter(profile=profile, question=question).exists()):
+                ql = QuestionLike(profile=profile, question=question)
+                ql.save()
+            elif self.filter(profile=profile, question=question, like=0).exists():
+                question.rating += 1
+                question.save()
+            QuestionLike.objects.filter(profile=profile, question=question).update(like=1)
+            question.rating += 1
+            question.save()
+        elif self.filter(profile=profile, question=question, like=1).exists():
+            QuestionLike.objects.filter(profile=profile, question=question).update(like=None)
+            question.rating -= 1
+            question.save()
+
+    def toggle_dislike(self, profile, question):
+        if not(self.filter(profile=profile, question=question).exists()) or self.filter(profile=profile, question=question, like=1).exists() or self.filter(profile=profile, question=question, like=None).exists():
+            if not(self.filter(profile=profile, question=question).exists()):
+                ql = QuestionLike(profile=profile, question=question)
+                ql.save()
+            elif self.filter(profile=profile, question=question, like=1).exists():
+                question.rating -= 1
+                question.save()
+            QuestionLike.objects.filter(profile=profile, question=question).update(like=0)
+            question.rating -= 1
+            question.save()
+            
+        elif self.filter(profile=profile, question=question, like=0).exists():
+            QuestionLike.objects.filter(profile=profile, question=question).update(like=None)
+            question.rating += 1
+            question.save()
+
+class AnswerLikeManager(models.Manager):
+    def toggle_like(self, profile, answer):
+        if not(self.filter(profile=profile, answer=answer).exists()) or self.filter(profile=profile, answer=answer, like=0).exists() or self.filter(profile=profile, answer=answer, like=None).exists():
+            if not(self.filter(profile=profile, answer=answer).exists()):
+                al = AnswerLike(profile=profile,answer=answer)
+                al.save()
+            elif self.filter(profile=profile, answer=answer, like=0).exists():
+                answer.rating += 1
+                answer.save()
+            AnswerLike.objects.filter(profile=profile, answer=answer).update(like=1)
+            answer.rating += 1
+            answer.save()
+            
+        elif self.filter(profile=profile, answer=answer, like=1).exists():
+            AnswerLike.objects.filter(profile=profile, answer=answer).update(like=None)
+            answer.rating -= 1
+            answer.save()
+
+    def toggle_dislike(self, profile, answer):
+        if not(self.filter(profile=profile, answer=answer).exists()) or self.filter(profile=profile, answer=answer, like=1).exists() or self.filter(profile=profile, answer=answer, like=None).exists():
+            if not(self.filter(profile=profile, answer=answer).exists()):
+                al = AnswerLike(profile=profile, answer=answer)
+                al.save()
+            elif self.filter(profile=profile, answer=answer, like=1).exists():
+                answer.rating -= 1
+                answer.save()
+            AnswerLike.objects.filter(profile=profile, answer=answer).update(like=0)
+            answer.rating -= 1
+            answer.save()
+            
+        elif self.filter(profile=profile, answer=answer, like=0).exists():
+            AnswerLike.objects.filter(profile=profile, answer=answer).update(like=None)
+            answer.rating += 1
+            answer.save()
+
 class Question(models.Model):
     title = models.CharField(max_length=50, blank=False)
     content = models.TextField(blank=False, max_length=200)
@@ -85,7 +154,9 @@ class Tag(models.Model):
 class QuestionLike(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     question = models.ForeignKey('Question', on_delete=models.CASCADE)
-    like = models.BooleanField()
+    like = models.BooleanField(null=True, blank=True)
+
+    objects = QuestionLikeManager()
 
     class Meta:
         unique_together = ('profile', 'question')
@@ -93,7 +164,9 @@ class QuestionLike(models.Model):
 class AnswerLike(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     answer = models.ForeignKey('Answer', on_delete=models.CASCADE)
-    like = models.BooleanField()
+    like = models.BooleanField(null=True, blank=True)
+
+    objects = AnswerLikeManager()
 
     class Meta:
         unique_together = ('profile', 'answer')
