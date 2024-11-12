@@ -15,6 +15,9 @@ from .models import Question, QuestionLike, Answer, AnswerLike
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 import app.forms
+from django.core.paginator import Paginator
+from django.shortcuts import render, Http404
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 client = Client(conf_settings.CENTRIFUGO_API_URL, api_key=conf_settings.CENTRIFUGO_API_KEY, timeout=1)
@@ -47,6 +50,19 @@ def get_centrifugo_date(user_id, channel):
             "channel": channel
         }
     }
+
+def paginate(request, objects, per_page=3):
+    paginator = Paginator(objects, per_page)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    
+    try:
+        page_items = paginator.page(page_number)
+    except PageNotAnInteger:
+        raise Http404("Page not found")
+    except EmptyPage:
+        raise Http404("Page not found")
+    return {'items': page_items, 'obj': page_obj}
     
 
 def redirect_continue(request):
@@ -56,22 +72,24 @@ def redirect_continue(request):
 
 @login_required(login_url="login", redirect_field_name="continue")
 def index(request):
-    questions = models.paginate(request, models.Question.objects.get_new())['items']
-    page_obj = models.paginate(request, models.Question.objects.get_new())['obj']
+    questions = paginate(request, models.Question.objects.get_new())['items']
+    page_obj = paginate(request, models.Question.objects.get_new())['obj']
     return render(request, 'index.html', {'questions': questions, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_popular_profiles()})
 
 def question(request, question_id):
-    item = models.Question.objects.all()[question_id-1]
-    answers = models.paginate(request, models.Answer.objects.get_answers(item))['items']
-    page_obj = models.paginate(request, models.Answer.objects.get_answers(item))['obj']
+    try:
+        item = models.Question.objects.get(id=question_id)
+    except models.Question.DoesNotExist:
+        raise Http404('Question does not exist')
+    
+    answers = paginate(request, models.Answer.objects.get_answers(item))['items']
+    page_obj = paginate(request, models.Answer.objects.get_answers(item))['obj']
     if request.method == 'POST':
         if not request.user.is_authenticated:
             return redirect('login')
         answer_form = app.forms.AnswerForm(request.user, question_id, request.POST)
         if answer_form.is_valid():
             answer_form.save()
-
-            data = {"content": "data"}
 
             last_page = ceil(len(models.Answer.objects.get_answers(item)) / 3)
             redirect_url = reverse('question', args=[question_id]) + f'?page={last_page}'
@@ -82,13 +100,18 @@ def question(request, question_id):
     return render(request, 'question.html', {'question': item, 'answers': answers, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_popular_profiles(), 'form': answer_form, **get_centrifugo_date(request.user.id, f'{question_id}')})
 
 def tag(request, tag_name):
-    questions = models.paginate(request, models.Question.objects.get_tag(tag_name))['items']
-    page_obj = models.paginate(request, models.Question.objects.get_tag(tag_name))['obj']
+    try:
+        models.Tag.objects.get(name=tag_name)
+    except models.Tag.DoesNotExist:
+        raise Http404('Tag does not exist')
+    
+    questions = paginate(request, models.Question.objects.get_tag(tag_name))['items']
+    page_obj = paginate(request, models.Question.objects.get_tag(tag_name))['obj']
     return render(request, 'tag.html', {'tag': tag_name, 'questions': questions, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_popular_profiles()})
 
 def hot(request):
-    questions = models.paginate(request, models.Question.objects.get_hot())['items']
-    page_obj = models.paginate(request, models.Question.objects.get_hot())['obj']
+    questions = paginate(request, models.Question.objects.get_hot())['items']
+    page_obj = paginate(request, models.Question.objects.get_hot())['obj']
     return render(request, 'hot.html', {'questions': questions, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_popular_profiles()})
 
 def ask(request):

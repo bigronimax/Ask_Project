@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator
 from django.db.models import Count
 from datetime import date, timedelta
 
@@ -144,7 +143,7 @@ class Profile(models.Model):
     
 
 class Tag(models.Model):
-    name = models.CharField(blank=False, max_length=32)
+    name = models.CharField(blank=False, max_length=32, unique=True)
 
     objects = TagManager()
 
@@ -172,12 +171,7 @@ class AnswerLike(models.Model):
         unique_together = ('profile', 'answer')
     
 
-def paginate(request, objects, per_page=3):
-    paginator = Paginator(objects, per_page)
-    page_number = request.GET.get('page', 1)
-    page_obj = paginator.get_page(page_number)
-    page_items = paginator.page(page_number)
-    return {'items': page_items, 'obj': page_obj}
+
     
 
 
