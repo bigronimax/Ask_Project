@@ -190,3 +190,37 @@ def answerLike(request):
         AnswerLike.objects.toggle_dislike(profile=request.user.profile, answer=answer)
     likes_count = answer.rating
     return JsonResponse({"count": likes_count})
+
+
+@csrf_protect
+@login_required(login_url="login", redirect_field_name="continue")
+def answerCorrect(request):
+    id = request.POST.get("answer_id")
+    answer = get_object_or_404(Answer, pk=id)
+    print("before", answer.content)
+    print("before", answer.correct)
+    if (answer.correct):
+        answer.correct = False
+        print("without", answer.content)
+        print("without", answer.correct)
+        answer.save()
+    else:
+        if (len(Answer.objects.get_correct_answer_by_question(answer.question)) > 0):
+            prevAnswer = Answer.objects.get_correct_answer_by_question(answer.question)[0]
+            prevAnswer.correct = False
+            print("prev", prevAnswer.content)
+            print("prev", prevAnswer.correct)
+            prevAnswer.save()
+
+            answer.correct = True
+            print("after", answer.content)
+            print("after", answer.correct)
+            answer.save()
+            
+            return JsonResponse({"id": prevAnswer.id})
+        
+        else:
+            answer.correct = True
+            answer.save()
+        
+    return JsonResponse({"id": id})

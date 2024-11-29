@@ -375,6 +375,10 @@ input {
     border-bottom: 1px solid blue;
 }
 
+.question__right__tags {
+    margin-right: 15px;
+}
+
 .question__right__hrefs__tags {
     font-size: 17px;
     margin-right: 15px;
@@ -382,7 +386,6 @@ input {
 
 .question__right__hrefs__date {
     font-size: 17px; 
-    margin-left: 20px;
 }
 
 .question__right__hrefs__item {
@@ -453,6 +456,7 @@ span.paginator__btn:hover {
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
+    margin-right: 15px;
 }
 
 .answer__checkbox {
@@ -465,6 +469,7 @@ span.paginator__btn:hover {
 .answer__checkbox__text {
     font-size: 20px;
     margin-left: 10px;
+    color: green
 }
 
 .answer + .answer {

@@ -67,7 +67,8 @@ class Command(BaseCommand):
                 content = fake.text(),
                 rating = randint(0, 100000),
                 profile = profiles[randint(0, profiles_count-1)],
-                date = str(fake.date_time_between(datetime(2022,1,1, 0, 0, 0, 0), datetime(2023,12,31, 0, 0, 0, 0)))
+                date = str(fake.date_time_between(datetime(2022,1,1, 0, 0, 0, 0), datetime(2023,12,31, 0, 0, 0, 0))),
+                correct = False,
             ) for i in range(answers_size)
         ]
         Answer.objects.bulk_create(answers)

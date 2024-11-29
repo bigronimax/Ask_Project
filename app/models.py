@@ -21,6 +21,9 @@ class AnswerManager(models.Manager):
     def get_answers(self, question):
         return self.filter(question=question).order_by('-date')
     
+    def get_correct_answer_by_question(self, question):
+        return self.filter(question=question).filter(correct=True)
+    
 class TagManager(models.Manager):
 
     def get_popular_tags(self):
@@ -106,7 +109,7 @@ class AnswerLikeManager(models.Manager):
 class Question(models.Model):
     title = models.CharField(max_length=50, blank=False)
     content = models.TextField(blank=False, max_length=200)
-    profile = models.ForeignKey('Profile', on_delete=models.PROTECT, blank=True, null=True, default="")
+    profile = models.ForeignKey('Profile', on_delete=models.SET_NULL, blank=True, null=True, default="")
     rating = models.IntegerField(default=0)
     tags = models.ManyToManyField('Tag', blank=True)
     date = models.DateTimeField(blank=False, null=True)
@@ -122,9 +125,10 @@ class Question(models.Model):
 class Answer(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE, blank=False, default="")
     content = models.TextField(blank=False)
-    profile = models.ForeignKey('Profile' , on_delete=models.PROTECT, blank=True, null=True, default="")
+    profile = models.ForeignKey('Profile' , on_delete=models.SET_NULL, blank=True, null=True, default="")
     rating = models.IntegerField(default=0)
     date = models.DateTimeField(blank=False, null=True)
+    correct = models.BooleanField(default=False)
 
     objects = AnswerManager()
 
@@ -133,7 +137,7 @@ class Answer(models.Model):
 
 
 class Profile(models.Model):
-    profile = models.OneToOneField(User, null=True, on_delete=models.PROTECT, default="")
+    profile = models.OneToOneField(User, null=True, on_delete=models.SET_NULL, default="")
     avatar = models.ImageField(null=True, blank=True, default="avatar.png", upload_to="avatar/%Y/%M/%D")
 
     def __str__(self):

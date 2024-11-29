@@ -17,8 +17,8 @@
       </div>
       <div class="question__right__hrefs">
         <form class="answer__form">
-          <input class="answer__checkbox" id="answer" type="checkbox">
-          <label class="answer__checkbox__text" for="answer">Correct!</label>
+          <input class="answer__checkbox" id="answer_check_{{ answer.id }}" type="{% if request.user.profile != answer.question.profile %}hidden{% else %}checkbox{% endif %}" data-id="{{ answer.id }}" {% if answer.correct %} checked {% else %} '' {% endif %}>
+          <label class="answer__checkbox__text" id="answer_checkbox_text_{{ answer.id }}" for="answer">{% if answer.correct %}Correct!{% endif %}</label>
         </form>
         <span class="question__right__hrefs__date">Date: {{ answer.date }}</span>
       </div>

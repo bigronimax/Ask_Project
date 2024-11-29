@@ -32,6 +32,7 @@ urlpatterns = [
     path('profile/edit/', views.settings, name='settings'),
     path('questionLike/', views.questionLike, name='questionLike'),
     path('answerLike/', views.answerLike, name='answerLike'),
+    path('answerCorrect/', views.answerCorrect, name='answerCorrect'),
     path('admin/', admin.site.urls),
     # path('like', views.like, name='like'),
     # path('correctanswer', views.correct_answer, name='correct_answer')

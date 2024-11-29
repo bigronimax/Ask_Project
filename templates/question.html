@@ -25,11 +25,13 @@
       </div>
       <div class="question__right__hrefs">
         <span class="question__right__hrefs__tags">Tags:</span>
-        {% for question_tag in question.tags.all %}
+        <div class="question__right__tags">
+          {% for question_tag in question.tags.all %}
 
-        {% include 'components/question-tags-item.html' %}
+          {% include 'components/question-tags-item.html' %}
 
-        {% endfor %}
+          {% endfor %}
+        </div>
         <span class="question__right__hrefs__date">Date: {{ question.date }}</span>
       </div>
     </div>
