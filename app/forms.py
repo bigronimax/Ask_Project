@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.forms import ImageField, ValidationError
 from django.core.validators import validate_email
 from app.models import Answer, Profile, Question, Tag
+from datetime import datetime
 
 
 class LoginForm(forms.Form):
@@ -38,11 +39,15 @@ class RegisterForm(forms.ModelForm):
         return email
 
     def clean(self):
-        password = self.cleaned_data.get('password')
-        password_check = self.cleaned_data.get('password_check')
+        cleaned_data = super(RegisterForm, self).clean()
 
-        if password != password_check:
-            raise ValidationError('Passwords mismatch!')
+        password = cleaned_data.get('password')
+        password_check = cleaned_data.get('password_check')
+
+        if password and password_check:
+            if password != password_check:
+                raise ValidationError("The two password fields must match!")
+        return cleaned_data
     
     def save(self):
         self.cleaned_data.pop('password_check')
@@ -103,6 +108,8 @@ class AskForm(forms.ModelForm):
     def clean_tags(self):
         tags = self.cleaned_data.get('tags')
         tags_list = tags.strip().split(',')
+        if len(tags_list) > 3:
+            raise ValidationError('No more than 3 tags')
         if len(tags_list) < 1:
             raise ValidationError('Question must have some tags')
         return tags
@@ -111,6 +118,7 @@ class AskForm(forms.ModelForm):
         form_tags_str = self.cleaned_data.get('tags')
         from_tags_list = form_tags_str.strip().split(' ')
         db_tags = []
+       
         for tag in from_tags_list:
             db_tags.append(
                 Tag.objects.get_or_create(
@@ -120,8 +128,9 @@ class AskForm(forms.ModelForm):
         return list(map(lambda x: x[0], db_tags))
 
     def save(self):
+        datetime_now = datetime.now()
         profile = Profile.objects.get(profile=self.user)
-        question = Question(profile=profile, title=self.cleaned_data['title'], content=self.cleaned_data['content'])
+        question = Question(profile=profile, title=self.cleaned_data['title'], content=self.cleaned_data['content'], date=datetime_now)
         question.save()
 
         tags = self.cleaned_data.get('tags')
@@ -146,9 +155,10 @@ class AnswerForm(forms.ModelForm):
         fields = ['content']
 
     def save(self):
+        datetime_now = datetime.now()
         question = Question.objects.get(id=self.question_id)
         profile = Profile.objects.get(profile=self.user)
-        answer = Answer(profile=profile, question=question, content=self.cleaned_data['content'])
+        answer = Answer(profile=profile, question=question, content=self.cleaned_data['content'], date=datetime_now)
         answer.save()
         return answer
     

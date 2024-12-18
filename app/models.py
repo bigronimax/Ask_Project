@@ -19,7 +19,7 @@ class QuestionManager(models.Manager):
 class AnswerManager(models.Manager):
     
     def get_answers(self, question):
-        return self.filter(question=question).order_by('-date')
+        return self.filter(question=question).order_by('date')
     
     def get_correct_answer_by_question(self, question):
         return self.filter(question=question).filter(correct=True)
