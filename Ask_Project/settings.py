@@ -141,10 +141,10 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
 
-CENTRIFUGO_TOKEN_HMAC_SECRET_KEY = "my_secret"
-CENTRIFUGO_WS_URL = "ws://localhost:8000/connection/websocket"
-CENTRIFUGO_API_URL = "http://localhost:8000/api"
-CENTRIFUGO_API_KEY = "my_api_key"
+CENTRIFUGO_TOKEN_HMAC_SECRET_KEY = "4884199a-3843-40ec-b1c9-c6d6ac5795e0"
+CENTRIFUGO_WS_URL = "ws://localhost:8010/connection/websocket"
+CENTRIFUGO_API_URL = "http://localhost:8010/api"
+CENTRIFUGO_API_KEY = "71bba503-4777-4381-8f42-e773907676da"
 
 CACHES = {
     "default": {

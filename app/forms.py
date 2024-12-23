@@ -162,7 +162,4 @@ class AnswerForm(forms.ModelForm):
         answer.save()
         return answer
     
-    def content(self):
-        return self.cleaned_data['content']
-    
 

@@ -60,7 +60,8 @@
     </form>
   </div>
 </div>
-<!-- <script src="https://unpkg.com/centrifuge@5.0.0/dist/centrifuge.js"></script>
+<script src="https://unpkg.com/centrifuge@5.0.0/dist/centrifuge.js"></script>
+
 <script>
 
   const centrifuge = new Centrifuge("{{ centrifugo.ws_url }}", {
@@ -78,12 +79,14 @@
   const sub = centrifuge.newSubscription("{{ centrifugo.channel }}");
   
   sub.on('publication', function (ctx) {
+    console.log(ctx)
   }).on('subscribing', function (ctx) {
       console.log(`subscribing: ${ctx.code}, ${ctx.reason}`);
   }).on('subscribed', function (ctx) {
       console.log('subscribed', ctx);
   }).on('unsubscribed', function (ctx) {
       console.log(`unsubscribed: ${ctx.code}, ${ctx.reason}`);
-  }).subscribe();</script> -->
+  }).subscribe();
+</script>
 
 {% endblock %}

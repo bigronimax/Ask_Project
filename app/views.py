@@ -1,6 +1,6 @@
 import jwt
 import time
-from cent import Client
+from cent import Client, PublishRequest
 from math import ceil
 from django.contrib import auth
 from django.forms import model_to_dict
@@ -89,7 +89,10 @@ def question(request, question_id):
             return redirect('login')
         answer_form = app.forms.AnswerForm(request.user, question_id, request.POST)
         if answer_form.is_valid():
-            answer_form.save()
+            answer = answer_form.save()
+
+            request_cent = PublishRequest(channel=f'{question_id}', data=model_to_dict(answer, fields=["question", "profile", 'content']))
+            client.publish(request_cent)
 
             last_page = ceil(len(models.Answer.objects.get_answers(item)) / 3)
             redirect_url = reverse('question', args=[question_id]) + f'?page={last_page}'
