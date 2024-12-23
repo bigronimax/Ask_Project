@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Count
 from datetime import date, timedelta
+from django.utils.timezone import now
 
 # Create your models here.
 
@@ -32,9 +33,9 @@ class TagManager(models.Manager):
 class ProfileManager(models.Manager):
 
     def get_popular_profiles(self):
+        one_week_ago = now() - timedelta(days=7)
         return list(self.all())[0:10]
-        # startdate = date.today()
-        # enddate = startdate + timedelta(days=6)
+        
         # return self.filter(date__range=[startdate, enddate]).order_by('-rating')[:10]
 
 class QuestionLikeManager(models.Manager):
@@ -111,7 +112,7 @@ class Question(models.Model):
     content = models.TextField(blank=False, max_length=200)
     profile = models.ForeignKey('Profile', on_delete=models.SET_NULL, blank=True, null=True, default="")
     rating = models.IntegerField(default=0)
-    tags = models.ManyToManyField('Tag', blank=True)
+    tags = models.ManyToManyField('Tag', blank=True, related_name="questions")
     date = models.DateTimeField(blank=False, null=True)
     
 

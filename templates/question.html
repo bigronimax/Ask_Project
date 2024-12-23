@@ -39,12 +39,13 @@
 
 
   <div class="answers__body">
-    
-    {% for answer in answers %}
+    <div id="answers__body">
+      {% for answer in answers %}
 
-    {% include 'components/answer-item.html' %}
+      {% include 'components/answer-item.html' %}
 
-    {% endfor %}
+      {% endfor %}
+    </div>
 
     {% include 'components/paginator.html' %}
 
@@ -80,6 +81,87 @@
   
   sub.on('publication', function (ctx) {
     console.log(ctx)
+
+    const answer_data = ctx.data
+    console.log(answer_data.id)
+
+    const answerHtml = `<div class="question answer">
+                          <div class="question__left">
+                            <img class="question__left__img" src="{% static 'img/avatar.png' %}" alt="">
+                            <div class="question__left__likes__ans">
+                              <div class="rating-section answer-rating-section arrows" id="new-answer-rating-section">
+                                <button class="arrow arrow__up" data-id="${answer_data.id}">&#8743;</button>
+                                <button class="arrow arrow__down" data-id="${answer_data.id}">&#8744;</button>
+                              </div>
+                              <span class="counter answer-counter" id="new-answer-counter">${answer_data.rating}</span>
+                            </div>
+                          </div>
+                          <div class="question__right">
+                            <div class="question__right__body">
+                              <span class="question__right__text answer__text">${answer_data.content}</span>
+                            </div>
+                            <div class="question__right__hrefs">
+                              <form class="answer__form">
+                                <input class="answer__checkbox" id="answer_check_${answer_data.id}" type="hidden" data-id="${answer_data.id}"}>
+                                <label class="answer__checkbox__text" id="answer_checkbox_text_${answer_data.id}" for="answer"></label>
+                              </form>
+                            </div>
+                          </div>
+                        </div>`;
+    const container = document.getElementById("answers__body");
+    container.insertAdjacentHTML("beforeEnd", answerHtml);
+
+    const new_answer_buttons = document.getElementById("new-answer-rating-section")
+    const new_answer_counter = document.getElementById("new-answer-counter")
+
+    
+    const [like, dislike] = new_answer_buttons.children;
+    like.addEventListener('click', () => {
+
+        const formData = new FormData();
+        
+        formData.append("answer_id", like.dataset.id)
+        formData.append("like", 1)
+
+        const request = new Request('/answerLike/', {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": getCookie('csrftoken')
+            }
+        });
+        fetch(request)
+            .then((response) => response.json())
+            .then((data) => {
+                new_answer_counter.innerHTML = data.count
+            });
+    })
+    dislike.addEventListener('click', () => {
+
+        const formData = new FormData();
+
+        formData.append("answer_id", like.dataset.id)
+        formData.append("like", 0)
+
+        const request = new Request("/answerLike/", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": getCookie('csrftoken')
+            }
+        });
+        fetch(request)
+            .then((response) => response.json())
+            .then((data) => {
+                new_answer_counter.innerHTML = data.count
+            });
+
+    })
+    
+
+
+
+
   }).on('subscribing', function (ctx) {
       console.log(`subscribing: ${ctx.code}, ${ctx.reason}`);
   }).on('subscribed', function (ctx) {

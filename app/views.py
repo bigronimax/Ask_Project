@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_protect
 from . import models
 from django.conf import settings as conf_settings
 from django.core.cache import cache
-from .models import Question, QuestionLike, Answer, AnswerLike
+from .models import Question, QuestionLike, Answer, AnswerLike, Profile
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 import app.forms
@@ -25,6 +25,7 @@ client = Client(conf_settings.CENTRIFUGO_API_URL, api_key=conf_settings.CENTRIFU
 def get_popular_tags():
     cache_key = "popular_tags"
     tags = cache.get(cache_key)
+    print(tags)
 
     if not tags: 
         tags = models.Tag.objects.get_popular_tags()
@@ -32,15 +33,17 @@ def get_popular_tags():
     
     return tags
 
-def get_popular_profiles():
-    cache_key = "popular_profiles"
+def get_best_profiles():
+    cache_key = "best_profiles"
     profiles = cache.get(cache_key)
 
-    if not profiles:
-        profiles = models.Profile.objects.get_popular_profiles()
-        cache.set(cache_key, profiles, 10)
+    if profiles:
+        ids = [profile['id'] for profile in profiles]
+        profiles = Profile.objects.filter(id__in=ids)
+        print(profiles)
+        return profiles
     
-    return profiles
+    return []
 
 def get_centrifugo_date(user_id, channel):
     return {
@@ -74,7 +77,7 @@ def redirect_continue(request):
 def index(request):
     questions = paginate(request, models.Question.objects.get_new())['items']
     page_obj = paginate(request, models.Question.objects.get_new())['obj']
-    return render(request, 'index.html', {'questions': questions, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_popular_profiles()})
+    return render(request, 'index.html', {'questions': questions, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_best_profiles()})
 
 def question(request, question_id):
     try:
@@ -91,7 +94,7 @@ def question(request, question_id):
         if answer_form.is_valid():
             answer = answer_form.save()
 
-            request_cent = PublishRequest(channel=f'{question_id}', data=model_to_dict(answer, fields=["question", "profile", 'content']))
+            request_cent = PublishRequest(channel=f'{question_id}', data=model_to_dict(answer, fields=["id", "question", "profile", 'content', "correct", "rating"]))
             client.publish(request_cent)
 
             last_page = ceil(len(models.Answer.objects.get_answers(item)) / 3)
@@ -100,7 +103,7 @@ def question(request, question_id):
     else:
         answer_form = app.forms.AnswerForm(request.user,question_id)
 
-    return render(request, 'question.html', {'question': item, 'answers': answers, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_popular_profiles(), 'form': answer_form, **get_centrifugo_date(request.user.id, f'{question_id}')})
+    return render(request, 'question.html', {'question': item, 'answers': answers, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_best_profiles(), 'form': answer_form, **get_centrifugo_date(request.user.id, f'{question_id}')})
 
 def tag(request, tag_name):
     try:
@@ -110,12 +113,12 @@ def tag(request, tag_name):
     
     questions = paginate(request, models.Question.objects.get_tag(tag_name))['items']
     page_obj = paginate(request, models.Question.objects.get_tag(tag_name))['obj']
-    return render(request, 'tag.html', {'tag': tag_name, 'questions': questions, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_popular_profiles()})
+    return render(request, 'tag.html', {'tag': tag_name, 'questions': questions, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_best_profiles()})
 
 def hot(request):
     questions = paginate(request, models.Question.objects.get_hot())['items']
     page_obj = paginate(request, models.Question.objects.get_hot())['obj']
-    return render(request, 'hot.html', {'questions': questions, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_popular_profiles()})
+    return render(request, 'hot.html', {'questions': questions, 'page_obj': page_obj, 'tags': get_popular_tags(), 'members': get_best_profiles()})
 
 def ask(request):
     if request.method == 'POST':
@@ -125,7 +128,7 @@ def ask(request):
             return redirect(reverse('question', args=[question.id]))
     else:
         ask_form = app.forms.AskForm(request.user)
-    return render(request, 'ask.html', {'tags': get_popular_tags(), 'members': get_popular_profiles(), 'form': ask_form})
+    return render(request, 'ask.html', {'tags': get_popular_tags(), 'members': get_best_profiles(), 'form': ask_form})
 
 def logout(request):
     auth.logout(request)
@@ -144,7 +147,7 @@ def login(request):
     else:
         login_form = app.forms.LoginForm()
                 
-    return render(request, 'login.html', {'tags': get_popular_tags(), 'members': get_popular_profiles(), 'form': login_form})
+    return render(request, 'login.html', {'tags': get_popular_tags(), 'members': get_best_profiles(), 'form': login_form})
 
 @login_required(login_url="login", redirect_field_name="continue")
 def settings(request):
@@ -154,7 +157,7 @@ def settings(request):
         edit_form = app.forms.ProfileForm(request.POST, request.FILES, instance=request.user, initial=model_to_dict(request.user))
         if edit_form.is_valid():
             edit_form.save()
-    return render(request, 'settings.html', {'tags': get_popular_tags(), 'members': get_popular_profiles(), 'form': edit_form})
+    return render(request, 'settings.html', {'tags': get_popular_tags(), 'members': get_best_profiles(), 'form': edit_form})
 
 def signup(request):
     if request.method == 'GET':
@@ -168,7 +171,7 @@ def signup(request):
                 return redirect(reverse('index'))
             else:
                 user_form.add_error(None, 'Error with creating a new account!')
-    return render(request, 'signup.html', {'tags': get_popular_tags(), 'members': get_popular_profiles(), 'form': user_form})
+    return render(request, 'signup.html', {'tags': get_popular_tags(), 'members': get_best_profiles(), 'form': user_form})
 
 @csrf_protect
 @login_required(login_url="login", redirect_field_name="continue")
