@@ -342,7 +342,8 @@ Percentage of the requests served within a certain time (ms)
  100%     35 (longest request)
 
 
-
+Насколько быстрее отдается статика по сравнению с WSGI? NGINX раздает статику быстрее, чем WSGI в 6 раз
+Во сколько раз ускоряет работу proxy_cache? proxy_cache ускоряет раздачу динамики в 30 раз
 
 
 
