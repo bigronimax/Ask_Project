@@ -67,7 +67,7 @@ Percentage of the requests served within a certain time (ms)
  
  
  
-2) Отдача статического документа напрямую через gunicorn:
+2) Отдача статического документа напрямую через gunicorn: 
 ab -c 10 -n 1000 http://127.0.0.1:8000/static/css/style.css
 This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
@@ -146,7 +146,7 @@ Percentage of the requests served within a certain time (ms)
 
 
 3) Отдача динамического документа напрямую через gunicorn:
-ab -c 10 -n 1000 http://127.0.0.1:8000/settings
+ab -c 10 -n 1000 http://127.0.0.1:8000/hot/
 This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
@@ -169,38 +169,37 @@ Server Software:        gunicorn
 Server Hostname:        127.0.0.1
 Server Port:            8000
 
-Document Path:          /settings
-Document Length:        3882 bytes
+Document Path:          /hot/
+Document Length:        9005 bytes
 
 Concurrency Level:      10
-Time taken for tests:   4.761 seconds
+Time taken for tests:   16.982 seconds
 Complete requests:      1000
 Failed requests:        0
-Non-2xx responses:      1000
-Total transferred:      4171000 bytes
-HTML transferred:       3882000 bytes
-Requests per second:    210.04 [#/sec] (mean)
-Time per request:       47.610 [ms] (mean)
-Time per request:       4.761 [ms] (mean, across all concurrent requests)
-Transfer rate:          855.55 [Kbytes/sec] received
+Total transferred:      9301000 bytes
+HTML transferred:       9005000 bytes
+Requests per second:    58.89 [#/sec] (mean)
+Time per request:       169.817 [ms] (mean)
+Time per request:       16.982 [ms] (mean, across all concurrent requests)
+Transfer rate:          534.87 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.6      0      17
-Processing:     7   47   9.6     46      84
-Waiting:        7   47   9.6     46      84
-Total:          8   47   9.6     46      84
+Connect:        0    0   0.1      0       1
+Processing:    44  168  21.3    164     260
+Waiting:       43  168  21.3    164     259
+Total:         44  168  21.3    164     260
 
 Percentage of the requests served within a certain time (ms)
-  50%     46
-  66%     50
-  75%     53
-  80%     55
-  90%     61
-  95%     64
-  98%     70
-  99%     73
- 100%     84 (longest request)
+  50%    164
+  66%    173
+  75%    179
+  80%    183
+  90%    197
+  95%    208
+  98%    219
+  99%    227
+ 100%    260 (longest request)
  
  
  
@@ -211,7 +210,7 @@ Percentage of the requests served within a certain time (ms)
 
 
 4) Отдача динамического документа через проксирование запроса с nginx на gunicorn:
-ab -c 10 -n 1000 http://127.0.0.1/settings
+ab -c 10 -n 1000 http://127.0.0.1/hot/
 This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
@@ -234,38 +233,37 @@ Server Software:        nginx/1.18.0
 Server Hostname:        127.0.0.1
 Server Port:            80
 
-Document Path:          /settings
-Document Length:        3877 bytes
+Document Path:          /hot/
+Document Length:        9005 bytes
 
 Concurrency Level:      10
-Time taken for tests:   4.536 seconds
+Time taken for tests:   18.293 seconds
 Complete requests:      1000
 Failed requests:        0
-Non-2xx responses:      1000
-Total transferred:      4179000 bytes
-HTML transferred:       3877000 bytes
-Requests per second:    220.47 [#/sec] (mean)
-Time per request:       45.357 [ms] (mean)
-Time per request:       4.536 [ms] (mean, across all concurrent requests)
-Transfer rate:          899.77 [Kbytes/sec] received
+Total transferred:      9314000 bytes
+HTML transferred:       9005000 bytes
+Requests per second:    54.67 [#/sec] (mean)
+Time per request:       182.925 [ms] (mean)
+Time per request:       18.293 [ms] (mean, across all concurrent requests)
+Transfer rate:          497.24 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.1      0       3
-Processing:    10   45   9.6     44      95
-Waiting:        9   45   9.6     44      95
-Total:         10   45   9.6     44      95
+Connect:        0    0   0.2      0       5
+Processing:    45  180  36.0    170     365
+Waiting:       44  180  36.0    170     365
+Total:         46  181  36.0    170     365
 
 Percentage of the requests served within a certain time (ms)
-  50%     44
-  66%     48
-  75%     51
-  80%     52
-  90%     57
-  95%     62
-  98%     69
-  99%     74
- 100%     95 (longest request)
+  50%    170
+  66%    181
+  75%    188
+  80%    197
+  90%    226
+  95%    251
+  98%    297
+  99%    332
+ 100%    365 (longest request)
 
 
 
@@ -284,8 +282,8 @@ Percentage of the requests served within a certain time (ms)
 
 
 
-5) Отдача динамического документа через проксирование запроса с nginx на gunicorn, при кэшировние ответа на nginx (proxy cache):
-ab -c 10 -n 1000 http://127.0.0.1/settings
+5) Отдача динамического документа через проксирование запроса с nginx на gunicorn, при кэшировании ответа на nginx (proxy cache):
+ab -c 10 -n 1000 http://127.0.0.1/hot/
 This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
@@ -308,42 +306,42 @@ Server Software:        nginx/1.18.0
 Server Hostname:        127.0.0.1
 Server Port:            80
 
-Document Path:          /settings
-Document Length:        3877 bytes
+Document Path:          /hot/
+Document Length:        9005 bytes
 
 Concurrency Level:      10
-Time taken for tests:   0.157 seconds
+Time taken for tests:   0.114 seconds
 Complete requests:      1000
 Failed requests:        0
-Non-2xx responses:      1000
-Total transferred:      4179000 bytes
-HTML transferred:       3877000 bytes
-Requests per second:    6356.51 [#/sec] (mean)
-Time per request:       1.573 [ms] (mean)
-Time per request:       0.157 [ms] (mean, across all concurrent requests)
-Transfer rate:          25941.27 [Kbytes/sec] received
+Total transferred:      9314000 bytes
+HTML transferred:       9005000 bytes
+Requests per second:    8770.31 [#/sec] (mean)
+Time per request:       1.140 [ms] (mean)
+Time per request:       0.114 [ms] (mean, across all concurrent requests)
+Transfer rate:          79772.17 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    1   1.5      0      24
-Processing:     0    1   1.8      1      25
-Waiting:        0    1   1.6      0      21
-Total:          0    2   2.8      1      35
+Connect:        0    0   0.4      0       7
+Processing:     0    1   0.8      1       9
+Waiting:        0    0   0.4      0       7
+Total:          1    1   1.0      1      12
 
 Percentage of the requests served within a certain time (ms)
   50%      1
   66%      1
-  75%      2
-  80%      2
-  90%      2
-  95%      3
-  98%      5
-  99%     25
- 100%     35 (longest request)
-
+  75%      1
+  80%      1
+  90%      1
+  95%      2
+  98%      3
+  99%      9
+ 100%     12 (longest request)
 
 Насколько быстрее отдается статика по сравнению с WSGI? NGINX раздает статику быстрее, чем WSGI в 6 раз
-Во сколько раз ускоряет работу proxy_cache? proxy_cache ускоряет раздачу динамики в 30 раз
+Во сколько раз ускоряет работу proxy_cache? proxy_cache ускоряет раздачу динамики в 160 раз
+
+
 
 
 
